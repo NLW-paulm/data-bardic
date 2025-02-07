@@ -1,0 +1,24 @@
+{
+  "name": "@example/basics",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "generate-index": "mkdir -p dist/data && tsc && node scripts/generate-search-index.js",
+    "build:data": "tsc"
+  },
+  "dependencies": {
+    "@astrojs/tailwind": "^5.1.0",
+    "astro": "^4.15.3",
+    "lunr": "^2.3.9",
+    "tailwindcss": "^3.4.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3"
+  }
+}

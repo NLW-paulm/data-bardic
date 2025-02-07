@@ -1,0 +1,34 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SearchBox from '../components/SearchBox.astro';
+import ResultsGrid from '../components/ResultsGrid.astro';
+import { bardicNames } from '../data/bardicNames';
+---
+
+<Layout title="NLW Data | Data LlGC">
+  <main class="min-h-screen bg-gray-50 py-8 px-4">
+    <h1 class="text-4xl font-bold text-center mb-8">
+      <span class="text-red-600">NLW Data</span> | <span class="text-red-600">Data LlGC</span>
+    </h1>
+    
+    <SearchBox />
+    <ResultsGrid records={bardicNames.slice(0, 20)} />
+    
+    <div class="flex justify-center mt-8">
+      <nav aria-label="Pagination" class="inline-flex">
+        <button class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-50">
+          Previous
+        </button>
+        <button class="px-4 py-2 text-sm font-medium text-white bg-red-600 border border-red-600">
+          1
+        </button>
+        <button class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300">
+          2
+        </button>
+        <button class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-50">
+          Next
+        </button>
+      </nav>
+    </div>
+  </main>
+</Layout>
