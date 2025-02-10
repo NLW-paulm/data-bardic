@@ -1,0 +1,73 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import bardicNamesData from '/public/files/BardicNames.json';
+
+export function getStaticPaths() {
+  return bardicNamesData
+    .filter(bard => bard["BARDIC NAMES"]) // Only create pages for bards with bardic names
+    .map(bard => ({
+      params: {
+        // Create URL-friendly slug from bardic name
+        slug: bard["BARDIC NAMES"]
+          .toLowerCase()
+          .replace(/\s+/g, '-') // Replace spaces with hyphens
+          .replace(/[^\w\-]/g, '') // Remove special characters
+      },
+      props: { bard }
+    }));
+}
+
+const { bard } = Astro.props;
+
+// Define fields to display and their labels
+const fields = [
+  { key: "BARDIC NAMES", label: "Bardic Name" },
+  { key: "Surname", label: "Surname" },
+  { key: "FIRST NAMES", label: "First Names" },
+  { key: "TITLE", label: "Title" },
+  { key: "TOWN VILLAGE", label: "Town/Village" },
+  { key: "DATE ADMITTED", label: "Date Admitted" },
+  { key: "EXAM or HONORARY", label: "Exam or Honorary" },
+  { key: "TYPE OF MEMEBERSHIP", label: "Type of Membership" },
+  { key: "SOURCE", label: "Source" },
+  { key: "ANY OTHER INFO", label: "Additional Information" }
+];
+---
+
+<Layout title={`${bard["BARDIC NAMES"]} - NLW Data | Data LlGC`}>
+  <main class="min-h-screen bg-gray-50 py-8 px-4">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="text-4xl font-bold text-center mb-8">
+        <span class="text-red-600">{bard["BARDIC NAMES"]}</span>
+      </h1>
+
+      <div class="bg-white shadow-md rounded-lg overflow-hidden">
+        <table class="min-w-full divide-y divide-gray-200">
+          <tbody class="bg-white divide-y divide-gray-200">
+            {fields.map(({ key, label }) => (
+              bard[key] && (
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 bg-gray-50 w-1/4">
+                    {label}
+                  </td>
+                  <td class="px-6 py-4 text-sm text-gray-500">
+                    {bard[key]}
+                  </td>
+                </tr>
+              )
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mt-8 text-center">
+        <a
+          href="/data-bardic"
+          class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+        >
+          Back to Search
+        </a>
+      </div>
+    </div>
+  </main>
+</Layout>
