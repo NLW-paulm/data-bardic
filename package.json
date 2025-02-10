@@ -9,7 +9,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "generate-index": "mkdir -p dist/data && tsc && node scripts/generate-search-index.js",
+    "generate-index": "node scripts/generate-search-index.js",
     "build:data": "tsc"
   },
   "dependencies": {
