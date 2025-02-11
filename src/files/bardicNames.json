@@ -1,5 +1,6 @@
 [
   {
+    "id": "ccc76467-a7aa-4745-ac74-3c85da07f06b",
     "Surname": "Williams",
     "FIRST NAMES": "Edward",
     "TITLE": "Unknown",
@@ -12,6 +13,7 @@
     "ANY OTHER INFO": "Ynôl Iolo Morganwg urddwyd ef gan Siôn (John ) Bradford (1706-1785) yn Fardd wrth Fraint a Defod Beirdd Ynys Prydain(gw Meic Stephens Cydymaith I Lenyddiaeth Cymru (Caerdydd, GPC. 1997) t.59."
   },
   {
+    "id": "787c1f2f-e979-4c24-b9b1-5a9f2b2d0fa4",
     "Surname": "Owen (Pughe)",
     "FIRST NAMES": "William Owen",
     "TITLE": "Dr",
@@ -24,6 +26,7 @@
     "ANY OTHER INFO": "Derwyddion ym Mraint Beirdd Ynys Prydain HGB t. 22"
   },
   {
+    "id": "49df9c8d-1e56-4228-afbb-ea445c90b206",
     "Surname": "Dafydd/Davies",
     "FIRST NAMES": "Daniel",
     "TITLE": "Unknown",
@@ -36,6 +39,7 @@
     "ANY OTHER INFO": "Derwyddion ym Mraint Beirdd Ynys Prydain HGB t. 22"
   },
   {
+    "id": "c4dbe0e0-10e3-4ebb-8733-146fe7d3c48f",
     "Surname": "Owain",
     "FIRST NAMES": "Gwilym",
     "TITLE": "Unknown",
@@ -48,6 +52,7 @@
     "ANY OTHER INFO": "Derwydd ym Mraint Beirdd Ynys Prydain HGB t. 22"
   },
   {
+    "id": "46c4454c-ad59-41e6-b334-b268e5e5bb79",
     "Surname": "Jones",
     "FIRST NAMES": "John",
     "TITLE": "Unknown",
@@ -60,6 +65,7 @@
     "ANY OTHER INFO": "Derwydd ym Mraint Beirdd Ynys Prydain HGB t. 22"
   },
   {
+    "id": "68decc79-64d9-4ae5-ad77-0fd7817ea724",
     "Surname": "Samwell",
     "FIRST NAMES": "David",
     "TITLE": "Dr",
@@ -72,6 +78,7 @@
     "ANY OTHER INFO": "Derwydd ym Mraint Beirdd Ynys Prydain HGB t. 22"
   },
   {
+    "id": "84d18d39-122c-47c9-ba66-65015d87d03d",
     "Surname": "Jones",
     "FIRST NAMES": "Jones",
     "TITLE": "Unknown",
@@ -84,6 +91,7 @@
     "ANY OTHER INFO": "Derwydd ym Mraint Beirdd Ynys Prydain HGB t. 22 Bardd y Brenin."
   },
   {
+    "id": "b64399d9-a010-416c-bf07-7855dda2a011",
     "Surname": "Jones",
     "FIRST NAMES": "Thomas",
     "TITLE": "Unknown",
@@ -96,6 +104,7 @@
     "ANY OTHER INFO": "Derwydd ym Mraint Beirdd Ynys Prydain HGB t. 22"
   },
   {
+    "id": "70a8619e-dd59-47d0-85a2-c09b5bd1bd0c",
     "Surname": "Evans",
     "FIRST NAMES": "Hugh",
     "TITLE": "Unknown",
@@ -108,6 +117,7 @@
     "ANY OTHER INFO": "Derwydd ym Mraint Beirdd Ynys Prydain HGB t. 22"
   },
   {
+    "id": "813d2837-2937-4938-9315-62500548e5ee",
     "Surname": "Edwards",
     "FIRST NAMES": "John",
     "TITLE": "Unknown",
@@ -120,6 +130,7 @@
     "ANY OTHER INFO": "Derwydd ym Mraint Beirdd Ynys Prydain HGB t. 22"
   },
   {
+    "id": "302813b1-51e5-4e3d-8b0c-35fde2ab0142",
     "Surname": "Parry",
     "FIRST NAMES": "John",
     "TITLE": "Unknown",
@@ -132,6 +143,7 @@
     "ANY OTHER INFO": "Derwydd ym Mraint Beirdd Ynys Prydain HGB t. 22"
   },
   {
+    "id": "504c41e0-9fa8-433a-9fe8-73d7cfe681eb",
     "Surname": "Parry",
     "FIRST NAMES": "John Humphrey",
     "TITLE": "Unknown",
@@ -144,6 +156,7 @@
     "ANY OTHER INFO": "Derwydd ym Mraint Beirdd Ynys Prydain HGB t. 22"
   },
   {
+    "id": "85ab4a46-67a5-4bb2-9f4c-fec47efa51a3",
     "Surname": "Charles",
     "FIRST NAMES": "Edward",
     "TITLE": "Unknown",
@@ -156,6 +169,7 @@
     "ANY OTHER INFO": "Derwydd ym Mraint Beirdd Ynys Prydain HGB t. 22"
   },
   {
+    "id": "ee0990b9-2b67-416b-9279-1b8469eebfc5",
     "Surname": "Jones",
     "FIRST NAMES": "Owen",
     "TITLE": "Unknown",
@@ -168,6 +182,7 @@
     "ANY OTHER INFO": "Derwydd ym Mraint Beirdd Ynys Prydain HGB t. 22"
   },
   {
+    "id": "7ee04985-fa65-41a4-9e71-23a49e7d442c",
     "Surname": "Roberts",
     "FIRST NAMES": "Thomas",
     "TITLE": "Unknown",
@@ -180,6 +195,7 @@
     "ANY OTHER INFO": "Derwydd ym Mraint Beirdd Ynys Prydain HGB t. 22"
   },
   {
+    "id": "3bc30716-9037-4e42-91f8-7b6aab65bb09",
     "Surname": "Thomas",
     "FIRST NAMES": "David",
     "TITLE": "Unknown",
@@ -192,6 +208,7 @@
     "ANY OTHER INFO": "Derwydd ym Mraint Beirdd Ynys Prydain HGB t. 22"
   },
   {
+    "id": "8f5e5e6d-4a6b-4829-9400-922136889f8a",
     "Surname": "Unknown",
     "FIRST NAMES": "Unknown",
     "TITLE": "Unknown",
@@ -204,6 +221,7 @@
     "ANY OTHER INFO": "Unknown"
   },
   {
+    "id": "c9e7832a-911f-4541-b16a-7a2bad5df8ae",
     "Surname": "Davies",
     "FIRST NAMES": "Walter Davies",
     "TITLE": "Parchg.",
@@ -216,6 +234,7 @@
     "ANY OTHER INFO": "Cadair Morganwg"
   },
   {
+    "id": "f8fc0e2a-a069-41c8-8192-04f73fd425fa",
     "Surname": "Owen(Pughe)",
     "FIRST NAMES": "Sarah Elizabeth",
     "TITLE": "Unknown",
@@ -228,6 +247,7 @@
     "ANY OTHER INFO": "Gwraig Dr Gwilym Owen (Pughe)"
   },
   {
+    "id": "ad953440-5528-43cf-bd5c-0dd73b412278",
     "Surname": "Williams",
     "FIRST NAMES": "Taliesin",
     "TITLE": "Unknown",
@@ -240,6 +260,7 @@
     "ANY OTHER INFO": "Mab Iolo Morganwg Urddwyd yn Fardd yn 1823"
   },
   {
+    "id": "ee1c0438-125c-47e5-b83a-ae1551973c05",
     "Surname": "Owen (Pughe)",
     "FIRST NAMES": "Aneurin",
     "TITLE": "Unknown",
@@ -252,6 +273,7 @@
     "ANY OTHER INFO": "Bardd yn 1823"
   },
   {
+    "id": "58cc433e-8500-4ee2-81cf-4e360aa0b15b",
     "Surname": "Unknown",
     "FIRST NAMES": "Unknown",
     "TITLE": "Unknown",
@@ -264,6 +286,7 @@
     "ANY OTHER INFO": "Unknown"
   },
   {
+    "id": "f07fe16a-8e20-400c-b8ad-e9fefbb34fda",
     "Surname": "Unknown",
     "FIRST NAMES": "Unknown",
     "TITLE": "Unknown",
@@ -276,6 +299,7 @@
     "ANY OTHER INFO": "Unknown"
   },
   {
+    "id": "74efb2b6-6150-4298-882f-725244f63893",
     "Surname": "Owen (Pughe)",
     "FIRST NAMES": "Aneurin",
     "TITLE": "Unknown",
@@ -288,6 +312,7 @@
     "ANY OTHER INFO": "Unknown"
   },
   {
+    "id": "04efe194-6b77-4489-a918-7cb1200e8ff4",
     "Surname": "Unknown",
     "FIRST NAMES": "Unknown",
     "TITLE": "Unknown",
@@ -300,6 +325,7 @@
     "ANY OTHER INFO": "Unknown"
   },
   {
+    "id": "76e75ff7-fec3-4afc-88e0-14c8aef1e5d0",
     "Surname": "Seward",
     "FIRST NAMES": "Ann",
     "TITLE": "Unknown",
@@ -312,6 +338,7 @@
     "ANY OTHER INFO": "Unknown"
   },
   {
+    "id": "eb30121f-62a2-4a86-a7a3-688a27c7db82",
     "Surname": "Evan",
     "FIRST NAMES": "Edward",
     "TITLE": "Unknown",
@@ -324,6 +351,7 @@
     "ANY OTHER INFO": "Unknown"
   },
   {
+    "id": "ce0c192d-fbd4-4d8e-b0dc-892add13d9c0",
     "Surname": "Williams",
     "FIRST NAMES": "Edward",
     "TITLE": "Unknown",
@@ -336,6 +364,7 @@
     "ANY OTHER INFO": "Unknown"
   },
   {
+    "id": "539e8d3e-5d9e-4f7e-8474-1bf5564e1e25",
     "Surname": "Evans",
     "FIRST NAMES": "Thomas",
     "TITLE": "Unknown",
@@ -348,6 +377,7 @@
     "ANY OTHER INFO": "Unknown"
   },
   {
+    "id": "d7d8be40-b80d-4e4d-90e7-1aeacfa391f8",
     "Surname": "Moses",
     "FIRST NAMES": "William",
     "TITLE": "Unknown",
@@ -360,6 +390,7 @@
     "ANY OTHER INFO": "Unknown"
   },
   {
+    "id": "20873749-d79a-4d51-a834-dae14b50c3a3",
     "Surname": "Dim cofnod",
     "FIRST NAMES": "Unknown",
     "TITLE": "Unknown",
@@ -372,6 +403,7 @@
     "ANY OTHER INFO": "Unknown"
   },
   {
+    "id": "81943432-9aeb-4ede-a05c-01323bb9658d",
     "Surname": "Dim cofnod",
     "FIRST NAMES": "Unknown",
     "TITLE": "Unknown",
@@ -384,6 +416,7 @@
     "ANY OTHER INFO": "Unknown"
   },
   {
+    "id": "7d0a8084-4149-4a7f-874e-324eddbef3a8",
     "Surname": "Unknown",
     "FIRST NAMES": "Unknown",
     "TITLE": "Unknown",
@@ -396,6 +429,7 @@
     "ANY OTHER INFO": "Sgrôl Cyhoeddi'r Eisteddfod gan Iolo Morganwg 1795 onf dim tysio;aeth bod yr Orsedd wedi'I gynnal."
   },
   {
+    "id": "2c3a246e-d692-46b5-9fa1-3835623f4840",
     "Surname": "Unknown",
     "FIRST NAMES": "Unknown",
     "TITLE": "Unknown",
@@ -408,6 +442,7 @@
     "ANY OTHER INFO": "Dim wybodaeth am urddo."
   },
   {
+    "id": "6099d909-f14e-40b4-b7a3-320cfbbf5207",
     "Surname": "Unknown",
     "FIRST NAMES": "Unknown",
     "TITLE": "Unknown",
@@ -420,6 +455,7 @@
     "ANY OTHER INFO": "Dim wybodaeth am urddo."
   },
   {
+    "id": "d1604084-d585-48d3-a6de-e1512d6bacfb",
     "Surname": "Unknown",
     "FIRST NAMES": "Unknown",
     "TITLE": "Unknown",
@@ -432,6 +468,7 @@
     "ANY OTHER INFO": "Dim wybodaeth am urddo."
   },
   {
+    "id": "4977d30d-0672-46a5-a6eb-03ad3e86896e",
     "Surname": "Unknown",
     "FIRST NAMES": "Unknown",
     "TITLE": "Unknown",
@@ -444,6 +481,7 @@
     "ANY OTHER INFO": "Unknown"
   },
   {
+    "id": "46bcbf85-93af-4bad-891e-63ac4f0871af",
     "Surname": "Unknown",
     "FIRST NAMES": "Unknown",
     "TITLE": "Unknown",
@@ -456,6 +494,7 @@
     "ANY OTHER INFO": "Edward Williams Iolo Fardd Las yn llywyddu. Dim cofnod o urddo."
   },
   {
+    "id": "c3ec4b6d-d2cb-4678-b75f-78f2d51c4d98",
     "Surname": "Unknown",
     "FIRST NAMES": "Unknown",
     "TITLE": "Unknown",
@@ -468,6 +507,7 @@
     "ANY OTHER INFO": "O dan lywyddiaeth Dr David Samwell, Nantglyn, Dafydd Ddu Feddyg"
   },
   {
+    "id": "6f359d59-6bc4-43ee-8655-ebc3bc6e2424",
     "Surname": "Unknown",
     "FIRST NAMES": "Unknown",
     "TITLE": "Unknown",
@@ -480,6 +520,7 @@
     "ANY OTHER INFO": "Nid ar Fynydd y Fforest fel cyhoeddwyd yn Sgrôl 21 Medi 1797 . Dim cofnod o urddo."
   },
   {
+    "id": "22efe726-06cc-4e5f-b4b3-448c6c4b33e4",
     "Surname": "Unknown",
     "FIRST NAMES": "Unknown",
     "TITLE": "Unknown",
@@ -492,6 +533,7 @@
     "ANY OTHER INFO": "Unknown"
   },
   {
+    "id": "ad16790b-a70f-43c5-bf7c-7fe1cf06915a",
     "Surname": "Thomas",
     "FIRST NAMES": "David",
     "TITLE": "Unknown",
@@ -504,6 +546,7 @@
     "ANY OTHER INFO": "Iolo Morganwg ym Môn ac Arfon rhwng Hydref 1799 a dechrau Ionawr 1800 yn casglu defnyddiau ar gyfer y Myfyrian Archaeology HGB t.59"
   },
   {
+    "id": "34ab0cd2-7241-4be6-b959-5b427d0346b0",
     "Surname": "Pritchard",
     "FIRST NAMES": "Evan",
     "TITLE": "Unknown",
@@ -516,6 +559,7 @@
     "ANY OTHER INFO": "Iolo Morganwg ym Môn ac Arfon rhwng Hydref 1799 a dechrau Ionawr 1800 yn casglu defnyddiau ar gyfer y Myfyrian Archaeology HGB t.59"
   },
   {
+    "id": "58bcc70a-5252-4bfd-a188-399b27337e70",
     "Surname": "Williams",
     "FIRST NAMES": "Griffith",
     "TITLE": "Unknown",
@@ -528,6 +572,7 @@
     "ANY OTHER INFO": "Iolo Morganwg ym Môn ac Arfon rhwng Hydref 1799 a dechrau Ionawr 1800 yn casglu defnyddiau ar gyfer y Myfyrian Archaeology HGB t.59"
   },
   {
+    "id": "2461a5ef-b677-4976-976e-1554991f75ee",
     "Surname": "Unknown",
     "FIRST NAMES": "Unknown",
     "TITLE": "Unknown",
@@ -540,6 +585,7 @@
     "ANY OTHER INFO": "Bwriadodd Dafydd Ddu Eryri urddo John Roberts Sion Lleŷn yn fardd on dim cofnod o'I urddo."
   },
   {
+    "id": "bcfc34a8-9c4a-4a23-b781-9123376e4f63",
     "Surname": "Unknown",
     "FIRST NAMES": "Unknown",
     "TITLE": "Unknown",
@@ -552,6 +598,7 @@
     "ANY OTHER INFO": "Dim byd gorseddol ynglŷn â'r eisteddfod hon' B&B HGB 62."
   },
   {
+    "id": "99be270c-adca-45b3-9d08-8adcc2caf0c4",
     "Surname": "Unknown",
     "FIRST NAMES": "Unknown",
     "TITLE": "Unknown",
@@ -564,6 +611,7 @@
     "ANY OTHER INFO": "Unknown"
   },
   {
+    "id": "da193e70-33aa-4d71-8dc2-b59715fb4e15",
     "Surname": "Unknown",
     "FIRST NAMES": "Unknown",
     "TITLE": "Unknown",
@@ -576,6 +624,7 @@
     "ANY OTHER INFO": "Unknown"
   },
   {
+    "id": "16b37a77-b4fd-4383-8d63-d3adc49fcf00",
     "Surname": "Williams",
     "FIRST NAMES": "Thomas",
     "TITLE": "Unknown",
@@ -588,6 +637,7 @@
     "ANY OTHER INFO": "Unknown"
   },
   {
+    "id": "19513a10-1152-4430-8f82-10a752bbc443",
     "Surname": "Cule",
     "FIRST NAMES": "Edward",
     "TITLE": "Unknown",
@@ -600,6 +650,7 @@
     "ANY OTHER INFO": "Unknown"
   },
   {
+    "id": "afd0a4fb-4b5c-47c8-b868-c6584cb89e41",
     "Surname": "Williams",
     "FIRST NAMES": "Taliesin",
     "TITLE": "Unknown",
@@ -612,6 +663,7 @@
     "ANY OTHER INFO": "Mab Iolo Morganwg"
   },
   {
+    "id": "0a60b49b-51fe-434b-836d-a90908d2289d",
     "Surname": "Unknown",
     "FIRST NAMES": "Unknown",
     "TITLE": "Unknown",
@@ -624,6 +676,7 @@
     "ANY OTHER INFO": "Unknown"
   },
   {
+    "id": "54a46102-f52b-4963-9097-9f2a64a06d96",
     "Surname": "Unknown",
     "FIRST NAMES": "Unknown",
     "TITLE": "Unknown",
@@ -636,6 +689,7 @@
     "ANY OTHER INFO": "Unknown"
   },
   {
+    "id": "04e9f989-f24e-4ea0-b8e4-d250e0c1ed50",
     "Surname": "Unknown",
     "FIRST NAMES": "Unknown",
     "TITLE": "Unknown",
@@ -648,6 +702,7 @@
     "ANY OTHER INFO": "Unknown"
   },
   {
+    "id": "5e61693d-57fd-48c8-b210-7d0a2ee43003",
     "Surname": "Unknown",
     "FIRST NAMES": "Unknown",
     "TITLE": "Unknown",

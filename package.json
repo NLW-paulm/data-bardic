@@ -1,24 +1,26 @@
 {
-  "name": "@example/basics",
-  "type": "module",
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro",
-    "generate-index": "node scripts/generate-search-index.js",
-    "build:data": "tsc"
-  },
-  "dependencies": {
-    "@astrojs/tailwind": "^6.0.0",
-    "astro": "^5.2.5",
-    "lunr": "^2.3.9",
-    "tailwindcss": "^3.4.1"
-  },
-  "devDependencies": {
-    "typescript": "^5.7.3"
+    "name": "@example/basics",
+    "type": "module",
+    "version": "0.0.1",
+    "private": true,
+    "scripts": {
+      "dev": "astro dev",
+      "start": "astro dev",
+      "build": "astro build",
+      "preview": "astro preview",
+      "astro": "astro",
+      "generate-index": "node scripts/generate-search-index.js",
+      "build:data": "tsc"
+    },
+    "dependencies": {
+      "@astrojs/tailwind": "^6.0.0",
+      "astro": "^5.2.5",
+      "lunr": "^2.3.9",
+      "tailwindcss": "^3.4.1",
+      "uuid": "^9.0.1"
+    },
+    "devDependencies": {
+      "@types/uuid": "^9.0.7",
+      "typescript": "^5.7.3"
+    }
   }
-}

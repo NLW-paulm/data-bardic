@@ -1,4 +1,5 @@
 export interface BardicRecord {
+  id: string;
   Surname: string;
   "FIRST NAMES": string;
   TITLE: string;

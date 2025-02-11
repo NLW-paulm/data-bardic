@@ -2,6 +2,7 @@ import lunr from 'lunr';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
+import { v4 as uuidv4 } from 'uuid';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const dataPath = join(__dirname, '../src/files/bardicNames.json');
@@ -48,7 +49,11 @@ function isEmptyRecord(record) {
 function cleanRecord(record) {
   if (!record || typeof record !== 'object') return null;
 
+  // Ensure ID exists or generate new one f
+  const id = record.id || uuidv4();
+
   return {
+    id,
     Surname: cleanString(record.Surname),
     "FIRST NAMES": cleanString(record["FIRST NAMES"]),
     TITLE: cleanString(record.TITLE),
@@ -88,9 +93,9 @@ function generateSearchIndex() {
       
       let batch = [];
       
-      cleanedData.forEach((doc, index) => {
+      cleanedData.forEach((doc) => {
         batch.push({
-          id: index.toString(),
+          id: doc.id,
           surname: doc.Surname,
           firstName: doc["FIRST NAMES"],
           bardicName: doc["BARDIC NAMES"],
