@@ -13,8 +13,8 @@
     "build:data": "tsc"
   },
   "dependencies": {
-    "@astrojs/tailwind": "^5.1.0",
-    "astro": "^4.15.3",
+    "@astrojs/tailwind": "^6.0.0",
+    "astro": "^5.2.5",
     "lunr": "^2.3.9",
     "tailwindcss": "^3.4.1"
   },
