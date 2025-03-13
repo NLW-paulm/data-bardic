@@ -3,6 +3,26 @@ import Layout from '../layouts/Layout.astro';
 import SearchBox from '../components/SearchBox.astro';
 import ResultsGrid from '../components/ResultsGrid.astro';
 import { bardicNames } from '../data/bardicNames';
+
+const ITEMS_PER_PAGE = 20;
+const VISIBLE_PAGES = 10;
+const currentPage = Number(Astro.url.searchParams.get('page')) || 1;
+const totalPages = Math.ceil(bardicNames.length / ITEMS_PER_PAGE);
+
+// Calculate visible page range
+const halfVisible = Math.floor(VISIBLE_PAGES / 2);
+let startPage = Math.max(currentPage - halfVisible, 1);
+let endPage = Math.min(startPage + VISIBLE_PAGES - 1, totalPages);
+
+// Adjust start if we're near the end
+if (endPage - startPage + 1 < VISIBLE_PAGES) {
+  startPage = Math.max(endPage - VISIBLE_PAGES + 1, 1);
+}
+
+// Get records for current page
+const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+const endIndex = startIndex + ITEMS_PER_PAGE;
+const currentRecords = bardicNames.slice(startIndex, endIndex);
 ---
 
 <Layout title="NLW Data | Data LlGC">
@@ -12,22 +32,84 @@ import { bardicNames } from '../data/bardicNames';
     </h1>
     
     <SearchBox />
-    <ResultsGrid records={bardicNames.slice(0, 20)} />
+    <ResultsGrid records={currentRecords} />
     
     <div class="flex justify-center mt-8">
       <nav aria-label="Pagination" class="inline-flex">
-        <button class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-50">
+        {/* Previous page */}
+        <a
+          href={currentPage > 1 ? `/data-bardic?page=${currentPage - 1}` : '#'}
+          class={`px-4 py-2 text-sm font-medium border rounded-l-lg ${
+            currentPage <= 1
+              ? 'text-gray-400 bg-gray-100 cursor-not-allowed'
+              : 'text-gray-700 bg-white hover:bg-gray-50'
+          }`}
+        >
           Previous
-        </button>
-        <button class="px-4 py-2 text-sm font-medium text-white bg-red-600 border border-red-600">
-          1
-        </button>
-        <button class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300">
-          2
-        </button>
-        <button class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-50">
+        </a>
+        
+        {/* First page */}
+        {startPage > 1 && (
+          <>
+            <a
+              href="/data-bardic?page=1"
+              class="px-4 py-2 text-sm font-medium border-t border-b border-gray-300 text-gray-700 bg-white hover:bg-gray-50"
+            >
+              1
+            </a>
+            {startPage > 2 && (
+              <span class="px-4 py-2 text-sm font-medium border-t border-b border-gray-300 text-gray-700 bg-white">
+                ...
+              </span>
+            )}
+          </>
+        )}
+        
+        {/* Visible page numbers */}
+        {[...Array(endPage - startPage + 1)].map((_, i) => {
+          const pageNum = startPage + i
+          return (
+          <a
+            href={`/data-bardic?page=${pageNum}`}
+            class={`px-4 py-2 text-sm font-medium border-t border-b ${
+              currentPage === pageNum
+                ? 'text-white bg-red-600 border-red-600'
+                : 'text-gray-700 bg-white hover:bg-gray-50 border-gray-300'
+            }`}
+          >
+            {pageNum}
+          </a>
+          )
+        })}
+        
+        {/* Last page */}
+        {endPage < totalPages && (
+          <>
+            {endPage < totalPages - 1 && (
+              <span class="px-4 py-2 text-sm font-medium border-t border-b border-gray-300 text-gray-700 bg-white">
+                ...
+              </span>
+            )}
+            <a
+              href={`/data-bardic?page=${totalPages}`}
+              class="px-4 py-2 text-sm font-medium border-t border-b border-gray-300 text-gray-700 bg-white hover:bg-gray-50"
+            >
+              {totalPages}
+            </a>
+          </>
+        )}
+
+        {/* Next page */}
+        <a
+          href={currentPage < totalPages ? `/data-bardic?page=${currentPage + 1}` : '#'}
+          class={`px-4 py-2 text-sm font-medium border rounded-r-lg ${
+            currentPage >= totalPages
+              ? 'text-gray-400 bg-gray-100 cursor-not-allowed'
+              : 'text-gray-700 bg-white hover:bg-gray-50'
+          }`}
+        >
           Next
-        </button>
+        </a>
       </nav>
     </div>
   </main>
