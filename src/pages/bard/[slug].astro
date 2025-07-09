@@ -4,7 +4,7 @@ import bardicNamesData from '/src/files/bardicNames.json';
 import { getLangFromUrl, useTranslations } from '../../i18n/ui';
 
 export function getStaticPaths() {
-  return bardicNamesData
+  const paths = bardicNamesData
     .filter(bard => bard["BARDIC NAMES"]) // Only create pages for bards with bardic names
     .map(bard => ({
       params: {
@@ -12,6 +12,27 @@ export function getStaticPaths() {
       },
       props: { bard }
     }));
+
+  // Create paths for both locales
+  const allPaths = [];
+  
+  // Welsh (default locale) paths
+  paths.forEach(path => {
+    allPaths.push(path);
+  });
+  
+  // English locale paths
+  paths.forEach(path => {
+    allPaths.push({
+      params: {
+        slug: path.params.slug
+      },
+      props: { bard: path.props.bard },
+      locale: 'en'
+    });
+  });
+
+  return allPaths;
 }
 
 const { bard } = Astro.props;
