@@ -30,7 +30,7 @@ const currentRecords = bardicNames.slice(startIndex, endIndex);
 
 // Helper function for pagination URLs
 const getPageUrl = (page: number) => {
-  const baseUrl = lang === 'cy' ? (import.meta.env.BASE_URL.slice(0, -1) || '/') : `${import.meta.env.BASE_URL}en`;
+  const baseUrl = lang === 'cy' ? import.meta.env.BASE_URL || '/' : `${import.meta.env.BASE_URL}/en`;
   return page === 1 ? baseUrl : `${baseUrl}?page=${page}`;
 };
 ---
