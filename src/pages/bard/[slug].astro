@@ -53,7 +53,7 @@ const fields = [
   { key: "ANY OTHER INFO", label: t('field.additionalInfo') }
 ];
 
-const homeUrl = lang === 'cy' ? '/data-bardic' : '/data-bardic/en';
+const homeUrl = lang === 'cy' ? import.meta.env.BASE_URL.slice(0, -1) || '/' : `${import.meta.env.BASE_URL}en`;
 ---
 
 <Layout title={`${bard["BARDIC NAMES"]} - ${t('site.title')}`}>

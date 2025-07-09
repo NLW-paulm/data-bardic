@@ -13,26 +13,26 @@ const currentPath = Astro.url.pathname;
 // Helper function to get localized path
 function getLocalizedPath(path: string, targetLocale: 'cy' | 'en') {
   if (targetLocale === 'cy') {
-    return path.replace('/en/', '/').replace('/data-bardic/en', '/data-bardic');
+    return path.replace('/en/', '/');
   } else {
-    if (path === '/data-bardic/' || path === '/data-bardic') {
-      return '/data-bardic/en/';
+    if (path === '/' || path === '') {
+      return '/en/';
     }
-    return path.replace('/data-bardic/', '/data-bardic/en/');
+    return path.replace('/', '/en/');
   }
 }
 
 const links = [
   { 
-    href: locale === 'cy' ? '/data-bardic/' : '/data-bardic/en/', 
+    href: locale === 'cy' ? '/' : '/en/', 
     text: t('nav.home') 
   },
   { 
-    href: locale === 'cy' ? '/data-bardic/data' : '/data-bardic/en/data', 
+    href: locale === 'cy' ? '/data' : '/en/data', 
     text: t('nav.data') 
   },
   { 
-    href: locale === 'cy' ? '/data-bardic/about' : '/data-bardic/en/about', 
+    href: locale === 'cy' ? '/about' : '/en/about', 
     text: t('nav.about') 
   }
 ];

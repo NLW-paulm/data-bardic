@@ -111,7 +111,7 @@ const t = useTranslations(locale);
 
   // Helper function to render results grid
   function renderResults(records: typeof bardicNames) {
-    const baseUrl = currentLocale === 'cy' ? '/data-bardic/bard' : '/data-bardic/en/bard';
+    const baseUrl = currentLocale === 'cy' ? `${import.meta.env.BASE_URL}bard` : `${import.meta.env.BASE_URL}en/bard`;
     
     return records.map(record => `
       <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
