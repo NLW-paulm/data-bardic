@@ -1,4 +1,2 @@
----
-// Re-export the main data page for English locale
+  // src/pages/en/data.js
 export { default } from '../data.astro';
----
