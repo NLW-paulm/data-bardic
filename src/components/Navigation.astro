@@ -1,10 +1,40 @@
 ---
+import { useTranslations } from '../i18n/ui';
+
+interface Props {
+  locale: 'cy' | 'en';
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
 const currentPath = Astro.url.pathname;
 
+// Helper function to get localized path
+function getLocalizedPath(path: string, targetLocale: 'cy' | 'en') {
+  if (targetLocale === 'cy') {
+    return path.replace('/en/', '/').replace('/data-bardic/en', '/data-bardic');
+  } else {
+    if (path === '/data-bardic/' || path === '/data-bardic') {
+      return '/data-bardic/en/';
+    }
+    return path.replace('/data-bardic/', '/data-bardic/en/');
+  }
+}
+
 const links = [
-  { href: '/data-bardic/', text: 'Home' },
-  { href: '/data-bardic/data', text: 'Data' },
-  { href: '/data-bardic/about', text: 'About' }
+  { 
+    href: locale === 'cy' ? '/data-bardic/' : '/data-bardic/en/', 
+    text: t('nav.home') 
+  },
+  { 
+    href: locale === 'cy' ? '/data-bardic/data' : '/data-bardic/en/data', 
+    text: t('nav.data') 
+  },
+  { 
+    href: locale === 'cy' ? '/data-bardic/about' : '/data-bardic/en/about', 
+    text: t('nav.about') 
+  }
 ];
 ---
 <nav class="bg-white shadow-md mb-8">
@@ -12,7 +42,7 @@ const links = [
     <div class="flex justify-between h-16">
       <div class="flex">
         <div class="flex-shrink-0 flex items-center">
-          <span class="text-xl font-bold text-red-600">NLW Data</span>
+          <span class="text-xl font-bold text-red-600">{t('nav.brand')}</span>
         </div>
         <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
           {links.map(link => (
@@ -30,6 +60,30 @@ const links = [
         </div>
       </div>
       
+      <!-- Language Switcher -->
+      <div class="hidden sm:flex sm:items-center sm:space-x-2">
+        <a
+          href={getLocalizedPath(currentPath, 'cy')}
+          class={`px-3 py-1 text-sm font-medium rounded ${
+            locale === 'cy'
+              ? 'bg-red-600 text-white'
+              : 'text-gray-500 hover:text-gray-700'
+          }`}
+        >
+          CY
+        </a>
+        <a
+          href={getLocalizedPath(currentPath, 'en')}
+          class={`px-3 py-1 text-sm font-medium rounded ${
+            locale === 'en'
+              ? 'bg-red-600 text-white'
+              : 'text-gray-500 hover:text-gray-700'
+          }`}
+        >
+          EN
+        </a>
+      </div>
+
       <!-- Mobile menu button -->
       <div class="sm:hidden flex items-center">
         <button
@@ -62,6 +116,33 @@ const links = [
           {link.text}
         </a>
       ))}
+      
+      <!-- Mobile Language Switcher -->
+      <div class="border-t border-gray-200 pt-4 pb-3">
+        <div class="flex items-center px-4 space-x-2">
+          <span class="text-sm font-medium text-gray-500">Language:</span>
+          <a
+            href={getLocalizedPath(currentPath, 'cy')}
+            class={`px-3 py-1 text-sm font-medium rounded ${
+              locale === 'cy'
+                ? 'bg-red-600 text-white'
+                : 'text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            CY
+          </a>
+          <a
+            href={getLocalizedPath(currentPath, 'en')}
+            class={`px-3 py-1 text-sm font-medium rounded ${
+              locale === 'en'
+                ? 'bg-red-600 text-white'
+                : 'text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            EN
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </nav>

@@ -1,11 +1,14 @@
 ---
 import type { BardicRecord } from '../data/bardicNames';
+import { useTranslations } from '../i18n/ui';
 
 interface Props {
   records: BardicRecord[];
+  locale: 'cy' | 'en';
 }
 
-const { records } = Astro.props;
+const { records, locale } = Astro.props;
+const t = useTranslations(locale);
 
 function createSlug(bardicName: string) {
   return bardicName
@@ -13,6 +16,8 @@ function createSlug(bardicName: string) {
     .replace(/\s+/g, '-')
     .replace(/[^\w\-]/g, '');
 }
+
+const baseUrl = locale === 'cy' ? '/data-bardic/bard' : '/data-bardic/en/bard';
 ---
 <div id="results-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
   {records.map(record => (
@@ -20,13 +25,13 @@ function createSlug(bardicName: string) {
       <h3 class="text-xl font-semibold mb-3 text-red-600">
         {record["BARDIC NAMES"] ? (
           <a 
-            href={`/data-bardic/bard/${createSlug(record["BARDIC NAMES"])}`}
+            href={`${baseUrl}/${record.id}`}
             class="hover:underline"
           >
             {record["BARDIC NAMES"]}
           </a>
         ) : (
-          record.Surname || 'Unknown'
+          record.Surname || t('bard.unknown')
         )}
       </h3>
       
@@ -60,10 +65,10 @@ function createSlug(bardicName: string) {
         {record["BARDIC NAMES"] && (
           <div class="mt-4 text-center">
             <a
-              href={`/data-bardic/bard/${createSlug(record["BARDIC NAMES"])}`}
+              href={`${baseUrl}/${record.id}`}
               class="inline-block text-red-600 hover:text-red-700 font-medium"
             >
-              Read More → -
+              {t('search.readMore')}
             </a>
           </div>
         )}

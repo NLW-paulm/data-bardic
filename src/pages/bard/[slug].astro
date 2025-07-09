@@ -1,9 +1,10 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import bardicNamesData from '/src/files/bardicNames.json';
+import { getLangFromUrl, useTranslations } from '../../i18n/ui';
 
 export function getStaticPaths() {
-  return bardicNamesData
+  const paths = bardicNamesData
     .filter(bard => bard["BARDIC NAMES"]) // Only create pages for bards with bardic names
     .map(bard => ({
       params: {
@@ -11,26 +12,44 @@ export function getStaticPaths() {
       },
       props: { bard }
     }));
+
+  // Create paths for both locales
+  const allPaths = [];
+  paths.forEach(path => {
+    // Welsh (default) - no prefix
+    allPaths.push(path);
+    // English - with /en prefix
+    allPaths.push({
+      ...path,
+      params: { ...path.params, slug: `en/${path.params.slug}` }
+    });
+  });
+
+  return allPaths;
 }
 
 const { bard } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 
 // Define fields to display and their labels
 const fields = [
-  { key: "BARDIC NAMES", label: "Bardic Name" },
-  { key: "Surname", label: "Surname" },
-  { key: "FIRST NAMES", label: "First Names" },
-  { key: "TITLE", label: "Title" },
-  { key: "TOWN VILLAGE", label: "Town/Village" },
-  { key: "DATE ADMITTED", label: "Date Admitted" },
-  { key: "EXAM or HONORARY", label: "Exam or Honorary" },
-  { key: "TYPE OF MEMEBERSHIP", label: "Type of Membership" },
-  { key: "SOURCE", label: "Source" },
-  { key: "ANY OTHER INFO", label: "Additional Information" }
+  { key: "BARDIC NAMES", label: t('field.bardicName') },
+  { key: "Surname", label: t('field.surname') },
+  { key: "FIRST NAMES", label: t('field.firstName') },
+  { key: "TITLE", label: t('field.title') },
+  { key: "TOWN VILLAGE", label: t('field.townVillage') },
+  { key: "DATE ADMITTED", label: t('field.dateAdmitted') },
+  { key: "EXAM or HONORARY", label: t('field.examHonorary') },
+  { key: "TYPE OF MEMEBERSHIP", label: t('field.membershipType') },
+  { key: "SOURCE", label: t('field.source') },
+  { key: "ANY OTHER INFO", label: t('field.additionalInfo') }
 ];
+
+const homeUrl = lang === 'cy' ? '/data-bardic' : '/data-bardic/en';
 ---
 
-<Layout title={`${bard["BARDIC NAMES"]} - NLW Data | Data LlGC`}>
+<Layout title={`${bard["BARDIC NAMES"]} - ${t('site.title')}`}>
   <main class="min-h-screen bg-gray-50 py-8 px-4">
     <div class="max-w-4xl mx-auto">
       <h1 class="text-4xl font-bold text-center mb-8">
@@ -58,10 +77,10 @@ const fields = [
 
       <div class="mt-8 text-center">
         <a
-          href="/data-bardic"
+          href={homeUrl}
           class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
         >
-          Back to Search
+          {t('bard.backToSearch')}
         </a>
       </div>
     </div>

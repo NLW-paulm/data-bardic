@@ -3,6 +3,10 @@ import Layout from '../layouts/Layout.astro';
 import SearchBox from '../components/SearchBox.astro';
 import ResultsGrid from '../components/ResultsGrid.astro';
 import { bardicNames } from '../data/bardicNames';
+import { getLangFromUrl, useTranslations } from '../i18n/ui';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 
 const ITEMS_PER_PAGE = 39;
 const VISIBLE_PAGES = 10;
@@ -23,36 +27,42 @@ if (endPage - startPage + 1 < VISIBLE_PAGES) {
 const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
 const endIndex = startIndex + ITEMS_PER_PAGE;
 const currentRecords = bardicNames.slice(startIndex, endIndex);
+
+// Helper function for pagination URLs
+const getPageUrl = (page: number) => {
+  const baseUrl = lang === 'cy' ? '/data-bardic' : '/data-bardic/en';
+  return page === 1 ? baseUrl : `${baseUrl}?page=${page}`;
+};
 ---
 
-<Layout title="NLW Data | Data LlGC">
+<Layout title={t('site.title')}>
   <main class="min-h-screen bg-gray-50 py-8 px-4">
     <h1 class="text-4xl font-bold text-center mb-8">
-      <span class="text-red-600">NLW Data</span> | <span class="text-red-600">Data LlGC</span>
+      <span class="text-red-600">{t('site.title')}</span>
     </h1>
     
-    <SearchBox />
-    <ResultsGrid records={currentRecords} />
+    <SearchBox locale={lang} />
+    <ResultsGrid records={currentRecords} locale={lang} />
     
     <div class="flex justify-center mt-8">
       <nav aria-label="Pagination" class="inline-flex">
         {/* Previous page */}
         <a
-          href={currentPage > 1 ? `/data-bardic?page=${currentPage - 1}` : '#'}
+          href={currentPage > 1 ? getPageUrl(currentPage - 1) : '#'}
           class={`px-4 py-2 text-sm font-medium border rounded-l-lg ${
             currentPage <= 1
               ? 'text-gray-400 bg-gray-100 cursor-not-allowed'
               : 'text-gray-700 bg-white hover:bg-gray-50'
           }`}
         >
-          Previous
+          {t('pagination.previous')}
         </a>
         
         {/* First page */}
         {startPage > 1 && (
           <>
             <a
-              href="/data-bardic?page=1"
+              href={getPageUrl(1)}
               class="px-4 py-2 text-sm font-medium border-t border-b border-gray-300 text-gray-700 bg-white hover:bg-gray-50"
             >
               1
@@ -70,7 +80,7 @@ const currentRecords = bardicNames.slice(startIndex, endIndex);
           const pageNum = startPage + i
           return (
           <a
-            href={`/data-bardic?page=${pageNum}`}
+            href={getPageUrl(pageNum)}
             class={`px-4 py-2 text-sm font-medium border-t border-b ${
               currentPage === pageNum
                 ? 'text-white bg-red-600 border-red-600'
@@ -91,7 +101,7 @@ const currentRecords = bardicNames.slice(startIndex, endIndex);
               </span>
             )}
             <a
-              href={`/data-bardic?page=${totalPages}`}
+              href={getPageUrl(totalPages)}
               class="px-4 py-2 text-sm font-medium border-t border-b border-gray-300 text-gray-700 bg-white hover:bg-gray-50"
             >
               {totalPages}
@@ -101,14 +111,14 @@ const currentRecords = bardicNames.slice(startIndex, endIndex);
 
         {/* Next page */}
         <a
-          href={currentPage < totalPages ? `/data-bardic?page=${currentPage + 1}` : '#'}
+          href={currentPage < totalPages ? getPageUrl(currentPage + 1) : '#'}
           class={`px-4 py-2 text-sm font-medium border rounded-r-lg ${
             currentPage >= totalPages
               ? 'text-gray-400 bg-gray-100 cursor-not-allowed'
               : 'text-gray-700 bg-white hover:bg-gray-50'
           }`}
         >
-          Next
+          {t('pagination.next')}
         </a>
       </nav>
     </div>
