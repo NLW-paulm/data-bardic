@@ -4,7 +4,7 @@ import bardicNamesData from '/src/files/bardicNames.json';
 import { getLangFromUrl, useTranslations } from '../../i18n/ui';
 
 export function getStaticPaths() {
-  const paths = bardicNamesData
+  return bardicNamesData
     .filter(bard => bard["BARDIC NAMES"]) // Only create pages for bards with bardic names
     .map(bard => ({
       params: {
@@ -12,8 +12,6 @@ export function getStaticPaths() {
       },
       props: { bard }
     }));
-
-  return paths;
 }
 
 const { bard } = Astro.props;
