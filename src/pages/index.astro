@@ -5,6 +5,32 @@ import ResultsGrid from '../components/ResultsGrid.astro';
 import { bardicNames } from '../data/bardicNames';
 import { getLangFromUrl, useTranslations } from '../i18n/ui';
 
+export function getStaticPaths() {
+  const ITEMS_PER_PAGE = 39;
+  const totalPages = Math.ceil(bardicNames.length / ITEMS_PER_PAGE);
+  
+  const paths = [];
+  
+  // Generate paths for both locales
+  for (let page = 1; page <= totalPages; page++) {
+    // Welsh (default) paths
+    if (page === 1) {
+      paths.push({ params: {}, props: { locale: 'cy', page: 1 } });
+    } else {
+      paths.push({ params: {}, props: { locale: 'cy', page } });
+    }
+    
+    // English paths
+    if (page === 1) {
+      paths.push({ params: {}, props: { locale: 'en', page: 1 } });
+    } else {
+      paths.push({ params: {}, props: { locale: 'en', page } });
+    }
+  }
+  
+  return paths;
+}
+
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
@@ -30,7 +56,7 @@ const currentRecords = bardicNames.slice(startIndex, endIndex);
 
 // Helper function for pagination URLs
 const getPageUrl = (page: number) => {
-  const baseUrl = lang === 'cy' ? import.meta.env.BASE_URL || '/' : `${import.meta.env.BASE_URL}/en`;
+  const baseUrl = lang === 'cy' ? (import.meta.env.BASE_URL || '/') : `${(import.meta.env.BASE_URL || '/').replace(/\/$/, '')}/en/`;
   return page === 1 ? baseUrl : `${baseUrl}?page=${page}`;
 };
 ---

@@ -14,33 +14,36 @@ const currentPath = Astro.url.pathname;
 function getLocalizedPath(path: string, targetLocale: 'cy' | 'en') {
   const baseUrl = import.meta.env.BASE_URL || '/';
   
+  // Normalize baseUrl to always end with /
+  const normalizedBaseUrl = baseUrl.endsWith('/') ? baseUrl : baseUrl + '/';
+  
   if (targetLocale === 'cy') {
     // Remove /en from the path to get Welsh version
-    return path.replace(`${baseUrl}en/`, baseUrl).replace(`${baseUrl}en`, baseUrl);
+    return path.replace(`${normalizedBaseUrl}en/`, normalizedBaseUrl).replace(`${normalizedBaseUrl}en`, normalizedBaseUrl.slice(0, -1));
   } else {
     // Add /en to the path for English version
-    if (path === baseUrl || path === baseUrl.slice(0, -1)) {
-      return `${baseUrl}en/`;
+    if (path === normalizedBaseUrl || path === normalizedBaseUrl.slice(0, -1)) {
+      return `${normalizedBaseUrl}en/`;
     }
     // If already has /en, return as is, otherwise add /en
-    if (path.includes(`${baseUrl}en/`)) {
+    if (path.includes(`${normalizedBaseUrl}en/`)) {
       return path;
     }
-    return path.replace(baseUrl, `${baseUrl}en/`);
+    return path.replace(normalizedBaseUrl, `${normalizedBaseUrl}en/`);
   }
 }
 
 const links = [
   { 
-    href: locale === 'cy' ? import.meta.env.BASE_URL || '/' : `${import.meta.env.BASE_URL || '/'}en/`, 
+    href: locale === 'cy' ? (import.meta.env.BASE_URL || '/') : `${(import.meta.env.BASE_URL || '/').replace(/\/$/, '')}/en/`, 
     text: t('nav.home') 
   },
   { 
-    href: locale === 'cy' ? `${import.meta.env.BASE_URL || '/'}data` : `${import.meta.env.BASE_URL || '/'}en/data`, 
+    href: locale === 'cy' ? `${(import.meta.env.BASE_URL || '/').replace(/\/$/, '')}/data` : `${(import.meta.env.BASE_URL || '/').replace(/\/$/, '')}/en/data`, 
     text: t('nav.data') 
   },
   { 
-    href: locale === 'cy' ? `${import.meta.env.BASE_URL || '/'}about` : `${import.meta.env.BASE_URL || '/'}en/about`, 
+    href: locale === 'cy' ? `${(import.meta.env.BASE_URL || '/').replace(/\/$/, '')}/about` : `${(import.meta.env.BASE_URL || '/').replace(/\/$/, '')}/en/about`, 
     text: t('nav.about') 
   }
 ];

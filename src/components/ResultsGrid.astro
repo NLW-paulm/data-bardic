@@ -17,7 +17,7 @@ function createSlug(bardicName: string) {
     .replace(/[^\w\-]/g, '');
 }
 
-const baseUrl = locale === 'cy' ? `${import.meta.env.BASE_URL}/bard` : `${import.meta.env.BASE_URL}/en/bard`;
+const baseUrl = locale === 'cy' ? `${(import.meta.env.BASE_URL || '/').replace(/\/$/, '')}/bard` : `${(import.meta.env.BASE_URL || '/').replace(/\/$/, '')}/en/bard`;
 ---
 <div id="results-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
   {records.map(record => (
