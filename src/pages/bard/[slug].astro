@@ -13,26 +13,7 @@ export function getStaticPaths() {
       props: { bard }
     }));
 
-  // Create paths for both locales
-  const allPaths = [];
-  
-  // Welsh (default locale) paths
-  paths.forEach(path => {
-    allPaths.push(path);
-  });
-  
-  // English locale paths
-  paths.forEach(path => {
-    allPaths.push({
-      params: {
-        slug: path.params.slug
-      },
-      props: { bard: path.props.bard },
-      locale: 'en'
-    });
-  });
-
-  return allPaths;
+  return paths;
 }
 
 const { bard } = Astro.props;
