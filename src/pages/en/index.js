@@ -1,4 +1,2 @@
----
-// Re-export the main index page for English locale
+// src/pages/en/index.js
 export { default } from '../index.astro';
----
