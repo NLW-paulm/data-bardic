@@ -5,6 +5,7 @@ dist/
 .astro/
 
 # bolt
+.bolt
 .codesandbox/
 .vscode/
 
