@@ -1,4 +1,76 @@
 ---
-// Re-export the main bard page for English locale
-export { default, getStaticPaths } from '../../bard/[slug].astro';
+import Layout from '../../../layouts/Layout.astro';
+import bardicNamesData from '/src/files/bardicNames.json';
+import { getLangFromUrl, useTranslations } from '../../../i18n/ui';
+
+export function getStaticPaths() {
+  const paths = bardicNamesData
+    .filter(bard => bard["BARDIC NAMES"]) // Only create pages for bards with bardic names
+    .map(bard => ({
+      params: {
+        slug: bard.id
+      },
+      props: { bard }
+    }));
+
+  return paths;
+}
+
+const { bard } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+// Define fields to display and their labels
+const fields = [
+  { key: "BARDIC NAMES", label: t('field.bardicName') },
+  { key: "Surname", label: t('field.surname') },
+  { key: "FIRST NAMES", label: t('field.firstName') },
+  { key: "TITLE", label: t('field.title') },
+  { key: "TOWN VILLAGE", label: t('field.townVillage') },
+  { key: "DATE ADMITTED", label: t('field.dateAdmitted') },
+  { key: "EXAM or HONORARY", label: t('field.examHonorary') },
+  { key: "TYPE OF MEMEBERSHIP", label: t('field.membershipType') },
+  { key: "SOURCE", label: t('field.source') },
+  { key: "ANY OTHER INFO", label: t('field.additionalInfo') }
+];
+
+const homeUrl = lang === 'cy' ? (import.meta.env.BASE_URL.slice(0, -1) || '/') : `${import.meta.env.BASE_URL}en`;
 ---
+
+<Layout title={`${bard["BARDIC NAMES"]} - ${t('site.title')}`}>
+  <main class="min-h-screen bg-gray-50 py-8 px-4">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="text-4xl font-bold text-center mb-8">
+        <span class="text-red-600">{bard["BARDIC NAMES"]}</span>
+      </h1>
+
+      <div class="bg-white shadow-md rounded-lg overflow-hidden">
+        <table class="min-w-full divide-y divide-gray-200">
+          <tbody class="bg-white divide-y divide-gray-200">
+            {fields.map(({ key, label }) => (
+              bard[key] && (
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 bg-gray-50 w-1/4">
+                    {label}
+                  </td>
+                  <td class="px-6 py-4 text-sm text-gray-500">
+                    {bard[key]}
+                  </td>
+                </tr>
+              )
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mt-8 text-center">
+        <a
+          href={homeUrl}
+          class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+        >
+          {t('bard.backToSearch')}
+        </a>
+      </div>
+    </div>
+  </main>
+</Layout>
