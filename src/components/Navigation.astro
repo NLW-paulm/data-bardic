@@ -12,27 +12,35 @@ const currentPath = Astro.url.pathname;
 
 // Helper function to get localized path
 function getLocalizedPath(path: string, targetLocale: 'cy' | 'en') {
+  const baseUrl = import.meta.env.BASE_URL || '/';
+  
   if (targetLocale === 'cy') {
-    return path.replace('/en/', '/');
+    // Remove /en from the path to get Welsh version
+    return path.replace(`${baseUrl}en/`, baseUrl).replace(`${baseUrl}en`, baseUrl);
   } else {
-    if (path === '/' || path === '') {
-      return '/en/';
+    // Add /en to the path for English version
+    if (path === baseUrl || path === baseUrl.slice(0, -1)) {
+      return `${baseUrl}en/`;
     }
-    return path.replace('/', '/en/');
+    // If already has /en, return as is, otherwise add /en
+    if (path.includes(`${baseUrl}en/`)) {
+      return path;
+    }
+    return path.replace(baseUrl, `${baseUrl}en/`);
   }
 }
 
 const links = [
   { 
-    href: locale === 'cy' ? '/' : '/en/', 
+    href: locale === 'cy' ? import.meta.env.BASE_URL || '/' : `${import.meta.env.BASE_URL || '/'}en/`, 
     text: t('nav.home') 
   },
   { 
-    href: locale === 'cy' ? '/data' : '/en/data', 
+    href: locale === 'cy' ? `${import.meta.env.BASE_URL || '/'}data` : `${import.meta.env.BASE_URL || '/'}en/data`, 
     text: t('nav.data') 
   },
   { 
-    href: locale === 'cy' ? '/about' : '/en/about', 
+    href: locale === 'cy' ? `${import.meta.env.BASE_URL || '/'}about` : `${import.meta.env.BASE_URL || '/'}en/about`, 
     text: t('nav.about') 
   }
 ];
