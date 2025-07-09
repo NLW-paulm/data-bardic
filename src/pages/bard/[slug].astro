@@ -8,24 +8,12 @@ export function getStaticPaths() {
     .filter(bard => bard["BARDIC NAMES"]) // Only create pages for bards with bardic names
     .map(bard => ({
       params: {
-        slug: bard.id // Use UUID instead of name-based slug
+        slug: bard.id
       },
       props: { bard }
     }));
 
-  // Create paths for both locales
-  const allPaths = [];
-  paths.forEach(path => {
-    // Welsh (default) - no prefix
-    allPaths.push(path);
-    // English - with /en prefix
-    allPaths.push({
-      ...path,
-      params: { ...path.params, slug: `en/${path.params.slug}` }
-    });
-  });
-
-  return allPaths;
+  return paths;
 }
 
 const { bard } = Astro.props;
