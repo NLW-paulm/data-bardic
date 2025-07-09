@@ -14,29 +14,28 @@ export function getStaticPaths() {
   // Generate paths for both locales
   for (let page = 1; page <= totalPages; page++) {
     // Welsh (default) paths
-    if (page === 1) {
-      paths.push({ params: {}, props: { locale: 'cy', page: 1 } });
-    } else {
-      paths.push({ params: {}, props: { locale: 'cy', page } });
-    }
+    paths.push({ 
+      params: {}, 
+      props: { locale: 'cy', page }
+    });
     
-    // English paths
-    if (page === 1) {
-      paths.push({ params: {}, props: { locale: 'en', page: 1 } });
-    } else {
-      paths.push({ params: {}, props: { locale: 'en', page } });
-    }
+    // English paths  
+    paths.push({ 
+      params: {}, 
+      props: { locale: 'en', page }
+    });
   }
   
   return paths;
 }
 
-const lang = getLangFromUrl(Astro.url);
+const { locale: propsLocale, page: propsPage } = Astro.props;
+const lang = propsLocale || getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 const ITEMS_PER_PAGE = 39;
 const VISIBLE_PAGES = 10;
-const currentPage = Number(Astro.url.searchParams.get('page')) || 1;
+const currentPage = propsPage || Number(Astro.url.searchParams.get('page')) || 1;
 const totalPages = Math.ceil(bardicNames.length / ITEMS_PER_PAGE);
 
 // Calculate visible page range
@@ -56,8 +55,11 @@ const currentRecords = bardicNames.slice(startIndex, endIndex);
 
 // Helper function for pagination URLs
 const getPageUrl = (page: number) => {
-  const baseUrl = lang === 'cy' ? (import.meta.env.BASE_URL || '/') : `${(import.meta.env.BASE_URL || '/').replace(/\/$/, '')}/en/`;
-  return page === 1 ? baseUrl : `${baseUrl}?page=${page}`;
+  if (lang === 'cy') {
+    return page === 1 ? '/' : `/?page=${page}`;
+  } else {
+    return page === 1 ? '/en/' : `/en/?page=${page}`;
+  }
 };
 ---
 

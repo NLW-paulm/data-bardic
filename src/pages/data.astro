@@ -3,7 +3,15 @@ import Layout from '../layouts/Layout.astro';
 import bardicNamesUrl from '../files/bardicNames.json?url';
 import { getLangFromUrl, useTranslations } from '../i18n/ui';
 
-const lang = getLangFromUrl(Astro.url);
+export function getStaticPaths() {
+  return [
+    { params: {}, props: { locale: 'cy' } },
+    { params: {}, props: { locale: 'en' } }
+  ];
+}
+
+const { locale: propsLocale } = Astro.props;
+const lang = propsLocale || getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 

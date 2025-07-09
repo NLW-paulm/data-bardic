@@ -22,8 +22,8 @@ export function getStaticPaths() {
   return paths;
 }
 
-const { bard } = Astro.props;
-const lang = getLangFromUrl(Astro.url);
+const { bard, locale: propsLocale } = Astro.props;
+const lang = propsLocale || getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 // Define fields to display and their labels
@@ -40,7 +40,7 @@ const fields = [
   { key: "ANY OTHER INFO", label: t('field.additionalInfo') }
 ];
 
-const homeUrl = lang === 'cy' ? (import.meta.env.BASE_URL || '/') : `${(import.meta.env.BASE_URL || '/').replace(/\/$/, '')}/en/`;
+const homeUrl = lang === 'cy' ? '/' : '/en/';
 ---
 
 <Layout title={`${bard["BARDIC NAMES"]} - ${t('site.title')}`}>
