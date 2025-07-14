@@ -1,0 +1,151 @@
+---
+import type { BardicRecord } from '../data/bardicNames';
+
+export interface Props {
+  bard: BardicRecord;
+  currentLang: 'cy' | 'en';
+}
+
+const { bard, currentLang } = Astro.props;
+
+const labels = {
+  cy: {
+    title: 'Teitl',
+    bardicName: 'Enw Barddol',
+    location: 'Lleoliad',
+    dateAdmitted: 'Dyddiad Derbyn',
+    examOrHonorary: 'Arholiad neu Anrhydedd',
+    membershipType: 'Math o Aelodaeth',
+    source: 'Ffynhonnell',
+    additionalInfo: 'Gwybodaeth Ychwanegol',
+    backToList: 'Yn ôl i\'r rhestr',
+    unknown: 'Anhysbys'
+  },
+  en: {
+    title: 'Title',
+    bardicName: 'Bardic Name',
+    location: 'Location',
+    dateAdmitted: 'Date Admitted',
+    examOrHonorary: 'Exam or Honorary',
+    membershipType: 'Type of Membership',
+    source: 'Source',
+    additionalInfo: 'Additional Information',
+    backToList: 'Back to list',
+    unknown: 'Unknown'
+  }
+};
+
+const text = labels[currentLang];
+const base = import.meta.env.BASE_URL;
+const backUrl = currentLang === 'cy' ? base : `${base}en/`;
+
+const renderDetail = (label: string, value: string) => {
+  if (!value || value === 'Unknown') return null;
+  return { label, value };
+};
+---
+
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="mb-6">
+    <a
+      href={backUrl}
+      class="inline-flex items-center text-primary-600 hover:text-primary-700 font-medium transition-colors"
+    >
+      <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+      {text.backToList}
+    </a>
+  </div>
+
+  <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+    <div class="bg-primary-600 px-6 py-8">
+      <div class="flex items-center justify-between">
+        <div>
+          {bard['BARDIC NAMES'] && bard['BARDIC NAMES'] !== 'Unknown' && (
+            <h1 class="text-3xl font-bold text-white mb-2">{bard['BARDIC NAMES']}</h1>
+          )}
+          <p class="text-primary-100 text-lg">
+            {bard['FIRST NAMES']} {bard.Surname}
+          </p>
+        </div>
+        <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-white text-primary-600">
+          {bard['TYPE OF MEMEBERSHIP']}
+        </span>
+      </div>
+    </div>
+
+    <div class="px-6 py-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="space-y-6">
+          {renderDetail(text.title, bard.TITLE) && (
+            <div>
+              <h3 class="text-sm font-medium text-secondary-500 uppercase tracking-wide mb-1">
+                {text.title}
+              </h3>
+              <p class="text-secondary-900">{bard.TITLE}</p>
+            </div>
+          )}
+
+          {renderDetail(text.location, bard['TOWN VILLAGE']) && (
+            <div>
+              <h3 class="text-sm font-medium text-secondary-500 uppercase tracking-wide mb-1">
+                {text.location}
+              </h3>
+              <p class="text-secondary-900">{bard['TOWN VILLAGE']}</p>
+            </div>
+          )}
+
+          {renderDetail(text.dateAdmitted, bard['DATE ADMITTED']) && (
+            <div>
+              <h3 class="text-sm font-medium text-secondary-500 uppercase tracking-wide mb-1">
+                {text.dateAdmitted}
+              </h3>
+              <p class="text-secondary-900">{bard['DATE ADMITTED']}</p>
+            </div>
+          )}
+
+          {renderDetail(text.membershipType, bard['TYPE OF MEMEBERSHIP']) && (
+            <div>
+              <h3 class="text-sm font-medium text-secondary-500 uppercase tracking-wide mb-1">
+                {text.membershipType}
+              </h3>
+              <p class="text-secondary-900">{bard['TYPE OF MEMEBERSHIP']}</p>
+            </div>
+          )}
+        </div>
+
+        <div class="space-y-6">
+          {renderDetail(text.examOrHonorary, bard['EXAM or HONORARY']) && (
+            <div>
+              <h3 class="text-sm font-medium text-secondary-500 uppercase tracking-wide mb-1">
+                {text.examOrHonorary}
+              </h3>
+              <p class="text-secondary-900">{bard['EXAM or HONORARY']}</p>
+            </div>
+          )}
+
+          {renderDetail(text.source, bard.SOURCE) && (
+            <div>
+              <h3 class="text-sm font-medium text-secondary-500 uppercase tracking-wide mb-1">
+                {text.source}
+              </h3>
+              <p class="text-secondary-900 text-sm leading-relaxed">{bard.SOURCE}</p>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {renderDetail(text.additionalInfo, bard['ANY OTHER INFO']) && (
+        <div class="mt-8 pt-8 border-t border-secondary-200">
+          <h3 class="text-sm font-medium text-secondary-500 uppercase tracking-wide mb-3">
+            {text.additionalInfo}
+          </h3>
+          <div class="bg-secondary-50 rounded-lg p-4">
+            <p class="text-secondary-900 leading-relaxed">{bard['ANY OTHER INFO']}</p>
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+</div>

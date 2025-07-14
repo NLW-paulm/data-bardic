@@ -1,0 +1,122 @@
+{
+    "about": {
+      "cy": {
+        "title": "Amdanom",
+        "pageTitle": "Amdanom - Bardic",
+        "pageDescription": "Dysgu mwy am brosiect Bardic a'n cenhadaeth",
+        "sections": [
+          {
+            "heading": "Ein Cenhadaeth",
+            "content": "Mae Bardic yn gronfa ddata gynhwysfawr o feirdd traddodiadol Cymru. Ein nod yw cadw a rhannu hanes cyfoethog ein treftadaeth fardol gyda'r byd."
+          },
+          {
+            "heading": "Beth yw Bardic?",
+            "content": "Mae'r wefan hon yn cynnwys gwybodaeth am feirdd hanesyddol Cymru, eu henwau barddol, lleoliadau, a'u cyfraniad i ddiwylliant Cymru. Mae'r data wedi'i gasglu o ffynonellau hanesyddol dibynadwy."
+          },
+          {
+            "heading": "Sut i Ddefnyddio'r Wefan",
+            "content": "Defnyddiwch y blwch chwilio ar y dudalen gartref i ddod o hyd i fardd penodol",
+            "list": [
+              "Defnyddiwch y blwch chwilio ar y dudalen gartref i ddod o hyd i fardd penodol",
+              "Pori drwy'r grid o gardiau beirdd i ddarganfod gwybodaeth newydd",
+              "Cliciwch ar fardd unigol i weld manylion llawn",
+              "Lawrlwythwch y data llawn o'r dudalen lawrlwytho"
+            ]
+          },
+          {
+            "heading": "Cysylltu â Ni",
+            "content": "Os oes gennych gwestiynau neu os hoffech gyfrannu at y brosiect, mae croeso i chi gysylltu â ni."
+          }
+        ]
+      },
+      "en": {
+        "title": "About",
+        "pageTitle": "About - Bardic",
+        "pageDescription": "Learn more about the Bardic project and our mission",
+        "sections": [
+          {
+            "heading": "Our Mission",
+            "content": "Bardic is a comprehensive database of traditional Welsh bards. Our goal is to preserve and share the rich history of our bardic heritage with the world."
+          },
+          {
+            "heading": "What is Bardic?",
+            "content": "This website contains information about historical Welsh bards, their bardic names, locations, and their contribution to Welsh culture. The data has been collected from reliable historical sources."
+          },
+          {
+            "heading": "How to Use the Website",
+            "content": "Use the search box on the home page to find a specific bard",
+            "list": [
+              "Use the search box on the home page to find a specific bard",
+              "Browse through the grid of bard cards to discover new information",
+              "Click on an individual bard to view full details",
+              "Download the complete data from the downloads page"
+            ]
+          },
+          {
+            "heading": "Contact Us",
+            "content": "If you have questions or would like to contribute to the project, please feel free to contact us."
+          }
+        ]
+      }
+    },
+    "downloads": {
+      "cy": {
+        "title": "Lawrlwytho Data",
+        "pageTitle": "Lawrlwytho Data - Bardic",
+        "pageDescription": "Lawrlwythwch data llawn y beirdd mewn fformatau gwahanol",
+        "sections": [
+          {
+            "heading": "Data Beirdd",
+            "content": "Mae'r data llawn o'r gronfa ddata beirdd ar gael i'w lawrlwytho mewn fformatau gwahanol. Mae'r data hwn yn cynnwys pob record yn y gronfa ddata."
+          }
+        ],
+        "downloads": [
+          {
+            "title": "JSON",
+            "description": "Fformat JSON ar gyfer defnydd programatig",
+            "buttonText": "Lawrlwytho JSON",
+            "available": true
+          },
+          {
+            "title": "CSV",
+            "description": "Fformat CSV ar gyfer taenlenni",
+            "buttonText": "Ar Ddod",
+            "available": false
+          }
+        ],
+        "license": {
+          "heading": "Trwydded",
+          "content": "Mae'r data hwn ar gael dan drwydded agored. Gallwch ei ddefnyddio ar gyfer ymchwil, addysg, a phrosiectau eraill. Os gwelwch yn dda, cyfeiriwch at y ffynhonnell wrth ddefnyddio'r data."
+        }
+      },
+      "en": {
+        "title": "Data Downloads",
+        "pageTitle": "Data Downloads - Bardic",
+        "pageDescription": "Download complete bard data in various formats",
+        "sections": [
+          {
+            "heading": "Bard Data",
+            "content": "The complete data from the bard database is available for download in various formats. This data includes every record in the database."
+          }
+        ],
+        "downloads": [
+          {
+            "title": "JSON",
+            "description": "JSON format for programmatic use",
+            "buttonText": "Download JSON",
+            "available": true
+          },
+          {
+            "title": "CSV",
+            "description": "CSV format for spreadsheets",
+            "buttonText": "Coming Soon",
+            "available": false
+          }
+        ],
+        "license": {
+          "heading": "License",
+          "content": "This data is available under an open license. You may use it for research, education, and other projects. Please credit the source when using the data."
+        }
+      }
+    }
+  }

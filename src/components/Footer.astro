@@ -1,0 +1,30 @@
+---
+export interface Props {
+  currentLang: 'cy' | 'en';
+}
+
+const { currentLang } = Astro.props;
+
+const footerText = {
+  cy: {
+    rights: 'Pob hawl yn gyfyngedig',
+    description: 'Cronfa ddata o feirdd traddodiadol Cymru'
+  },
+  en: {
+    rights: 'All rights reserved',
+    description: 'Database of traditional Welsh bards'
+  }
+};
+
+const text = footerText[currentLang];
+---
+
+<footer class="bg-secondary-800 text-secondary-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="text-center">
+      <p class="text-lg font-semibold text-primary-400 mb-2">Bardic</p>
+      <p class="text-sm mb-4">{text.description}</p>
+      <p class="text-xs">© 2024 Bardic. {text.rights}.</p>
+    </div>
+  </div>
+</footer>

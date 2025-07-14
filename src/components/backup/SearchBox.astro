@@ -1,0 +1,164 @@
+---
+import { useTranslations } from '../i18n/ui';
+
+interface Props {
+  locale: 'cy' | 'en';
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+---
+<div class="w-full max-w-2xl mx-auto mb-8">
+  <input 
+    type="search" 
+    id="search"
+    placeholder={t('search.placeholder')}
+    class="w-full px-4 py-2 text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+    minlength="3"
+    data-locale={locale}
+  />
+  <div id="suggestions" class="absolute z-10 w-full max-w-2xl bg-white border border-gray-200 rounded-lg shadow-lg mt-1 hidden">
+  </div>
+</div>
+
+<script>
+  import lunr from 'lunr';
+  import { bardicNames } from '../data/bardicNames';
+  import searchIndex from '../data/search-index.json';
+  import { ui } from '../i18n/ui';
+
+  // Load the pre-built index
+  const idx = lunr.Index.load(searchIndex);
+
+  // DOM elements
+  const searchInput = document.getElementById('search') as HTMLInputElement;
+  const suggestionsDiv = document.getElementById('suggestions');
+  const resultsGrid = document.getElementById('results-grid');
+  
+  // Get current locale from data attribute
+  const currentLocale = searchInput?.getAttribute('data-locale') as 'cy' | 'en' || 'cy';
+  const t = (key: keyof typeof ui.cy) => ui[currentLocale][key] || ui.cy[key];
+
+  // Initialize with first 20 records
+  if (resultsGrid) {
+    resultsGrid.innerHTML = renderResults(bardicNames.slice(0, 20));
+  }
+
+  // Search functionality
+  searchInput?.addEventListener('input', (e) => {
+    const query = (e.target as HTMLInputElement).value.trim();
+    
+    if (query.length < 3) {
+      suggestionsDiv?.classList.add('hidden');
+      if (resultsGrid) {
+        resultsGrid.innerHTML = renderResults(bardicNames.slice(0, 20));
+      }
+      return;
+    }
+
+    try {
+      const results = idx.search(query + '*');
+      const searchResults = results.map(r => bardicNames.find(b => b.id === r.ref)).filter(Boolean);
+      
+      // Update suggestions
+      if (searchResults.length > 0) {
+        suggestionsDiv?.classList.remove('hidden');
+        suggestionsDiv!.innerHTML = searchResults.slice(0, 4).map(record => `
+          <div class="p-2 hover:bg-gray-100 cursor-pointer suggestion-item">
+            <div class="font-medium">${record["BARDIC NAMES"] || record.Surname || t('bard.unknown')}</div>
+            <div class="text-sm text-gray-600">${record["TOWN_VILLAGE"] || ''}</div>
+          </div>
+        `).join('');
+
+        // Update main results grid
+        if (resultsGrid) {
+          resultsGrid.innerHTML = renderResults(searchResults);
+        }
+      } else {
+        suggestionsDiv?.classList.add('hidden');
+        if (resultsGrid) {
+          resultsGrid.innerHTML = `
+            <div class="col-span-full text-center py-8 text-gray-500">
+              ${t('search.noResults')} "${query}"
+            </div>
+          `;
+        }
+      }
+    } catch (error) {
+      console.error('Search error:', error);
+    }
+  });
+
+  // Handle suggestion clicks
+  suggestionsDiv?.addEventListener('click', (e) => {
+    const suggestionItem = (e.target as HTMLElement).closest('.suggestion-item');
+    if (suggestionItem) {
+      const name = suggestionItem.querySelector('.font-medium')?.textContent || '';
+      if (searchInput) {
+        searchInput.value = name;
+        searchInput.dispatchEvent(new Event('input'));
+      }
+      suggestionsDiv.classList.add('hidden');
+    }
+  });
+
+  // Close suggestions when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!suggestionsDiv?.contains(e.target as Node) && e.target !== searchInput) {
+      suggestionsDiv?.classList.add('hidden');
+    }
+  });
+
+  // Helper function to render results grid
+  function renderResults(records: typeof bardicNames) {
+    const baseUrl = currentLocale === 'cy' ? '/bard' : '/en/bard';
+    
+    return records.map(record => `
+      <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+        <h3 class="text-xl font-semibold mb-3 text-red-600">
+          ${record["BARDIC NAMES"] ? `
+            <a href="${baseUrl}/${record.id}/" class="hover:underline">
+              ${record["BARDIC NAMES"]}
+            </a>
+          ` : record.Surname || t('bard.unknown')}
+        </h3>
+        
+        <div class="space-y-2">
+          ${(record.Surname || record["FIRST NAMES"] || record.TITLE) ? `
+            <div class="border-b pb-2">
+              ${record.TITLE ? `<span class="font-medium">${record.TITLE} </span>` : ''}
+              ${record["FIRST NAMES"] ? `<span>${record["FIRST NAMES"]} </span>` : ''}
+              ${record.Surname ? `<span>${record.Surname}</span>` : ''}
+            </div>
+          ` : ''}
+
+          <div class="space-y-1">
+            ${record["TOWN VILLAGE"] ? `
+              <p class="text-gray-600">
+                <span class="inline-block w-6">📍</span>
+                ${record["TOWN VILLAGE"]}
+              </p>
+            ` : ''}
+            ${record["DATE ADMITTED"] ? `
+              <p class="text-gray-600">
+                <span class="inline-block w-6">📅</span>
+                ${record["DATE ADMITTED"]}
+              </p>
+            ` : ''}
+          </div>
+
+          ${record["BARDIC NAMES"] ? `
+            <div class="mt-4 text-center">
+              <a
+                href="${baseUrl}/${record.id}/"
+                class="inline-block text-red-600 hover:text-red-700 font-medium"
+              >
+                ${t('search.readMore')}
+              </a>
+            </div>
+          ` : ''}
+        </div>
+      </div>
+    `).join('');
+  }
+</script>

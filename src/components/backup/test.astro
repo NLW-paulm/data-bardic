@@ -35,21 +35,6 @@ const readMoreText = {
   <div id="suggestions" class="absolute z-10 w-full max-w-2xl bg-white border border-gray-200 rounded-lg shadow-lg mt-1 hidden">
   </div>
 </div>
-<div id="pagination-controls" class="flex justify-center items-center space-x-4 mt-8">
-  <button
-    id="prev-page-btn"
-    class="px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-  >
-    Previous
-  </button>
-  <span id="page-info" class="text-secondary-700 font-medium"></span>
-  <button
-    id="next-page-btn"
-    class="px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-  >
-    Next
-  </button>
-</div>
 
 <script>
  // Pull them off the container
@@ -61,13 +46,10 @@ const readMoreText = {
   console.log('readMoreText is:', readMore, 'baseurl: ', baseUrl , 'Bardpath' ,bardPath, baselang);
 
   import lunr from 'lunr';
-  import { BardicRecord } from '../data/bardicNames';
+  import bardicNamesData from '../files/bardicNames.json';
   import searchIndex from '../data/search-index.json';
-
-  let currentFilteredBards = BardicRecord; // Initialize with the full dataset
-  let currentPage = 1;
-  const itemsPerPage = 60;
-
+  const BardicRecord = bardicNamesData;
+  
  // Load the pre-built index
   const idx = lunr.Index.load(searchIndex);
 
@@ -75,38 +57,10 @@ const readMoreText = {
   const searchInput = document.getElementById('search') as HTMLInputElement;
   const suggestionsDiv = document.getElementById('suggestions');
   const resultsGrid = document.getElementById('results-grid');
-  const prevPageBtn = document.getElementById('prev-page-btn') as HTMLButtonElement;
-  const nextPageBtn = document.getElementById('next-page-btn') as HTMLButtonElement;
-  const pageInfoSpan = document.getElementById('page-info') as HTMLSpanElement;
-  const bardCountSpan = document.getElementById('bard-count') as HTMLSpanElement;
-  
-  // Bottom pagination controls
-  const prevPageBtnBottom = document.getElementById('prev-page-btn-bottom') as HTMLButtonElement;
-  const nextPageBtnBottom = document.getElementById('next-page-btn-bottom') as HTMLButtonElement;
-  const pageInfoSpanBottom = document.getElementById('page-info-bottom') as HTMLSpanElement;
 
-  // Initialize with paginated results
-  renderPaginatedResults();
-
-  function renderPaginatedResults() {
-    const totalPages = Math.ceil(currentFilteredBards.length / itemsPerPage);
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const bardsToRender = currentFilteredBards.slice(startIndex, endIndex);
-
-    if (resultsGrid) {
-      resultsGrid.innerHTML = renderResults(bardsToRender);
-    }
-
-    prevPageBtn.disabled = currentPage === 1;
-    nextPageBtn.disabled = currentPage === totalPages || totalPages === 0;
-    pageInfoSpan.textContent = `Page ${totalPages > 0 ? currentPage : 0} of ${totalPages}`;
-    bardCountSpan.textContent = `(${currentFilteredBards.length})`;
-    
-    // Update bottom pagination controls to match
-    prevPageBtnBottom.disabled = currentPage === 1;
-    nextPageBtnBottom.disabled = currentPage === totalPages || totalPages === 0;
-    pageInfoSpanBottom.textContent = `Page ${totalPages > 0 ? currentPage : 0} of ${totalPages}`;
+  // Initialize with first 20 records
+  if (resultsGrid) {
+    resultsGrid.innerHTML = renderResults(BardicRecord.slice(0, 20));
   }
 
   // Search functionality
@@ -115,9 +69,9 @@ const readMoreText = {
     
     if (query.length < 3) {
       suggestionsDiv?.classList.add('hidden');
-      currentFilteredBards = BardicRecord; // Reset to the full list of bards
-      currentPage = 1; // Reset current page
-      renderPaginatedResults(); // Render paginated results
+      if (resultsGrid) {
+        resultsGrid.innerHTML = renderResults(BardicRecord.slice(0, 20));
+      }
       return;
     }
 
@@ -125,10 +79,6 @@ const readMoreText = {
       const results = idx.search(query + '*');
       const searchResults = results.map(r => BardicRecord.find(b => b.id === r.ref)).filter(Boolean);
       
-      currentFilteredBards = searchResults; // Update filtered bards with search results
-      currentPage = 1; // Reset current page
-      renderPaginatedResults(); // Render paginated results
-
       // Update suggestions
       if (searchResults.length > 0) {
         suggestionsDiv?.classList.remove('hidden');
@@ -138,6 +88,11 @@ const readMoreText = {
             <div class="text-sm text-gray-600">${record["TOWN VILLAGE"] || ''}</div>
           </div>
         `).join('');
+
+        // Update main results grid
+        if (resultsGrid) {
+          resultsGrid.innerHTML = renderResults(searchResults);
+        }
       } else {
         suggestionsDiv?.classList.add('hidden');
         if (resultsGrid) {
@@ -147,14 +102,6 @@ const readMoreText = {
             </div>
           `;
         }
-        bardCountSpan.textContent = '(0)'; // Update bard count to 0
-        prevPageBtn.disabled = true; // Disable previous button
-        nextPageBtn.disabled = true; // Disable next button
-        pageInfoSpan.textContent = 'Page 0 of 0'; // Update page info
-        // Also update bottom controls
-        prevPageBtnBottom.disabled = true;
-        nextPageBtnBottom.disabled = true;
-        pageInfoSpanBottom.textContent = 'Page 0 of 0';
       }
     } catch (error) {
       console.error('Search error:', error);
@@ -178,46 +125,6 @@ const readMoreText = {
   document.addEventListener('click', (e) => {
     if (!suggestionsDiv?.contains(e.target as Node) && e.target !== searchInput) {
       suggestionsDiv?.classList.add('hidden');
-    }
-  });
-
-  // Pagination event listeners
-  prevPageBtn?.addEventListener('click', () => {
-    if (currentPage > 1) {
-      currentPage--;
-      renderPaginatedResults();
-      // Scroll to top of results for better UX
-      resultsGrid?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  });
-
-  nextPageBtn?.addEventListener('click', () => {
-    const totalPages = Math.ceil(currentFilteredBards.length / itemsPerPage);
-    if (currentPage < totalPages) {
-      currentPage++;
-      renderPaginatedResults();
-      // Scroll to top of results for better UX
-      resultsGrid?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  });
-
-  // Bottom pagination event listeners (same functionality)
-  prevPageBtnBottom?.addEventListener('click', () => {
-    if (currentPage > 1) {
-      currentPage--;
-      renderPaginatedResults();
-      // Scroll to top of results for better UX
-      resultsGrid?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  });
-
-  nextPageBtnBottom?.addEventListener('click', () => {
-    const totalPages = Math.ceil(currentFilteredBards.length / itemsPerPage);
-    if (currentPage < totalPages) {
-      currentPage++;
-      renderPaginatedResults();
-      // Scroll to top of results for better UX
-      resultsGrid?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   });
 

@@ -1,38 +1,39 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import SearchBox from '../components/SearchBox.astro';
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import SearchBox from '../../components/SearchBox.astro';
 
-const pageTitle = 'Bardic - Cronfa Ddata Beirdd Cymru';
-const pageDescription = 'Cronfa ddata gynhwysfawr o feirdd traddodiadol Cymru';
+
+const pageTitle = 'Bardic - Welsh Bards Database';
+const pageDescription = 'Comprehensive database of traditional Welsh bards';
 ---
 
-<Layout title={pageTitle} description={pageDescription} lang="cy">
-  <Header currentLang="cy" />
+<Layout title={pageTitle} description={pageDescription} lang="en">
+  <Header currentLang="en" />
   
   <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <div class="text-center mb-12">
       <h1 class="text-4xl font-bold text-secondary-900 mb-4">
-        Croeso i Bardic
+        Welcome to Bardic
       </h1>
       <p class="text-xl text-secondary-600 max-w-2xl mx-auto">
-        Darganfyddwch hanes beirdd traddodiadol Cymru a'u cyfraniad i'n treftadaeth ddiwylliannol
+        Discover the history of traditional Welsh bards and their contribution to our cultural heritage
       </p>
     </div>
     
     <SearchBox 
-      placeholder="Chwiliwch am fardd..."
-      searchLabel="Chwilio"
-      currentLang="cy"
+      placeholder="Search for a bard..."
+      searchLabel="Search"
+      currentLang="en"
     />
     
     <div class="mb-6">
-      <h2 class="text-2xl font-semibold text-secondary-900 mb-4">Beirdd <span id="bard-count"></span></h2>
+      <h2 class="text-2xl font-semibold text-secondary-900 mb-4">Bards<span id="bard-count"></span></h2>
     </div>
     
     <div id="results-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      
+     
     </div>
     
     <!-- Bottom pagination controls -->
@@ -53,5 +54,5 @@ const pageDescription = 'Cronfa ddata gynhwysfawr o feirdd traddodiadol Cymru';
     </div>
   </main>
   
-  <Footer currentLang="cy" />
+  <Footer currentLang="en" />
 </Layout>

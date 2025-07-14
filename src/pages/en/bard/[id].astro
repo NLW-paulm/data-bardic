@@ -1,0 +1,30 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import BardDetails from '../../../components/BardDetails.astro';
+import bardicNamesData from '../../../files/bardicNames.json';
+import type { BardicRecord } from '../../../data/bardicNames';
+
+export async function getStaticPaths() {
+  const bardicNames: BardicRecord[] = bardicNamesData;
+  return bardicNames.map((bard) => ({
+    params: { id: bard.id },
+    props: { bard },
+  }));
+}
+
+const { bard } = Astro.props;
+const pageTitle = `${bard['FIRST NAMES']} ${bard.Surname} - Bardic`;
+const pageDescription = `Full details about ${bard['FIRST NAMES']} ${bard.Surname}${bard['BARDIC NAMES'] && bard['BARDIC NAMES'] !== 'Unknown' ? ` (${bard['BARDIC NAMES']})` : ''}`;
+---
+
+<Layout title={pageTitle} description={pageDescription} lang="en">
+  <Header currentLang="en" />
+  
+  <main class="flex-1">
+    <BardDetails bard={bard} currentLang="en" />
+  </main>
+  
+  <Footer currentLang="en" />
+</Layout>

@@ -10,7 +10,7 @@ export default defineConfig({
       prefixDefaultLocale: false
     }
   },
-  base: '/data-bardic', // Replace 'directory' with your actual subdirectory name
+  base: '/data-bardic/', // Replace 'directory' with your actual subdirectory name
   outDir: './dist', // This is where your built files will go
   build: {
     assets: 'assets'

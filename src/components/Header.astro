@@ -1,0 +1,51 @@
+---
+import LanguageSwitcher from './LanguageSwitcher.astro';
+
+export interface Props {
+  currentLang: 'cy' | 'en';
+}
+
+const base = import.meta.env.BASE_URL;
+const { currentLang } = Astro.props;
+
+const navigation = {
+  cy: [
+    { name: 'Cartref', path: '' },
+    { name: 'Amdanom', path: 'cy/about' },
+    { name: 'Lawrlwytho Data', path: 'cy/downloads' },
+  ],
+  en: [
+    { name: 'Home', path: '' },
+    { name: 'About', path: 'en/about' },
+    { name: 'Data Downloads', path: 'en/downloads' },
+  ]
+};
+
+const nav = navigation[currentLang];
+const homeHref = currentLang === 'cy' ? base : `${base}en/`;
+---
+
+<header class="bg-white shadow-sm border-b border-secondary-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      <div class="flex items-center">
+        <a href={homeHref} class="text-2xl font-bold text-primary-600 hover:text-primary-700 transition-colors">
+          Bardic
+        </a>
+      </div>
+      
+      <nav class="hidden md:flex space-x-8">
+        {nav.map((item) => (
+          <a
+            href={`${base}${item.path}`}
+            class="text-secondary-600 hover:text-primary-600 px-3 py-2 text-sm font-medium transition-colors"
+          >
+            {item.name}
+          </a>
+        ))}
+      </nav>
+      
+      <LanguageSwitcher currentLang={currentLang} />
+    </div>
+  </div>
+</header>
