@@ -61,15 +61,16 @@ const readMoreText = {
   console.log('readMoreText is:', readMore, 'baseurl: ', baseUrl , 'Bardpath' ,bardPath, baselang);
 
   import lunr from 'lunr';
-  import { BardicRecord } from '../data/bardicNames';
-  import searchIndex from '../data/search-index.json';
+  // REMOVED: import { BardicRecord } from '../data/bardicNames';
+  import combinedSearchData from '../data/search-index.json'; // Changed import name
 
-  let currentFilteredBards = BardicRecord; // Initialize with the full dataset
+  // Load the pre-built index and document store
+  const idx = lunr.Index.load(combinedSearchData.idx);
+  const docStore = combinedSearchData.store;
+
+  let currentFilteredBards = Object.values(docStore); // Initialize with the full dataset from docStore
   let currentPage = 1;
   const itemsPerPage = 60;
-
- // Load the pre-built index
-  const idx = lunr.Index.load(searchIndex);
 
   // DOM elements
   const searchInput = document.getElementById('search') as HTMLInputElement;
@@ -99,13 +100,13 @@ const readMoreText = {
     }
 
     prevPageBtn.disabled = currentPage === 1;
-    nextPageBtn.disabled = currentPage === totalPages || totalPages === 0;
+    nextPageBtn.disabled = totalPages === 0 || currentPage === totalPages;
     pageInfoSpan.textContent = `Page ${totalPages > 0 ? currentPage : 0} of ${totalPages}`;
     bardCountSpan.textContent = `(${currentFilteredBards.length})`;
     
     // Update bottom pagination controls to match
     prevPageBtnBottom.disabled = currentPage === 1;
-    nextPageBtnBottom.disabled = currentPage === totalPages || totalPages === 0;
+    nextPageBtnBottom.disabled = totalPages === 0 || currentPage === totalPages;
     pageInfoSpanBottom.textContent = `Page ${totalPages > 0 ? currentPage : 0} of ${totalPages}`;
   }
 
@@ -115,7 +116,7 @@ const readMoreText = {
     
     if (query.length < 3) {
       suggestionsDiv?.classList.add('hidden');
-      currentFilteredBards = BardicRecord; // Reset to the full list of bards
+      currentFilteredBards = Object.values(docStore); // Reset to the full list of bards from docStore
       currentPage = 1; // Reset current page
       renderPaginatedResults(); // Render paginated results
       return;
@@ -123,7 +124,7 @@ const readMoreText = {
 
     try {
       const results = idx.search(query + '*');
-      const searchResults = results.map(r => BardicRecord.find(b => b.id === r.ref)).filter(Boolean);
+      const searchResults = results.map(r => docStore[r.ref]).filter(Boolean); // Use docStore directly
       
       currentFilteredBards = searchResults; // Update filtered bards with search results
       currentPage = 1; // Reset current page

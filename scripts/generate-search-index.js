@@ -112,13 +112,33 @@ function generateSearchIndex() {
       // Add remaining items
       batch.forEach(item => this.add(item));
     });
+    
+    // Create document store
+    const docStore = {};
+    cleanedData.forEach(doc => {
+      docStore[doc.id] = {
+        id: doc.id,
+        Surname: doc.Surname,
+        "FIRST NAMES": doc["FIRST NAMES"],
+        "BARDIC NAMES": doc["BARDIC NAMES"],
+        "TOWN VILLAGE": doc["TOWN VILLAGE"],
+        "DATE ADMITTED": doc["DATE ADMITTED"],
+        "TYPE OF MEMEBERSHIP": doc["TYPE OF MEMEBERSHIP"]
+      };
+    });
 
     // Write cleaned data and index
     fs.writeFileSync(
       join(__dirname, '../src/files/bardicNames.json'), 
       JSON.stringify(cleanedData, null, 2)
     );
-    fs.writeFileSync(outputPath, JSON.stringify(idx));
+    fs.writeFileSync(
+      outputPath,
+      JSON.stringify({
+        idx: idx.toJSON(), // Serialize the Lunr index
+        store: docStore    // Include the document store
+      }, null, 2) // Pretty print for readability, can remove in production
+    );
 
     console.log('Search index generated successfully');
     console.log(`Processed ${cleanedData.length} records`);

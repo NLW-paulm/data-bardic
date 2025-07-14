@@ -13,5 +13,5 @@ export interface BardicRecord {
 }
 
   // Import data from public JSON file
-  import bardicNamesData from '../files/bardicNames.json';
-  export const BardicRecord: BardicRecord[] = bardicNamesData;
+  //import bardicNamesData from '../files/bardicNames.json';
+  //export const BardicRecord: BardicRecord[] = bardicNamesData;
