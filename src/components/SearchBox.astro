@@ -1,4 +1,5 @@
 ---
+import { useTranslations } from '../i18n/ui';
 // Define the props that this component expects
 export interface Props {
   currentLang: 'cy' | 'en';
@@ -16,6 +17,7 @@ const readMoreText = {
   cy: 'Gweld manylion',
   en: 'View details'
 };
+const t = useTranslations(currentLang);
 ---
 <div
   id="search-container"
@@ -23,6 +25,13 @@ const readMoreText = {
   data-base={base}
   data-lang={currentLang}
   data-bardpath={bardPath}
+  data-sort-by-label={t('sort.sortBy')}
+  data-sort-bardic-name-label={t('sort.bardicName')}
+  data-sort-surname-label={t('sort.surname')}
+  data-sort-first-name-label={t('sort.firstName')}
+  data-sort-date-admitted-label={t('sort.dateAdmitted')}
+  data-sort-previous={t('sort.previous')}
+  data-sort-next={t('sort.next')}
   class="w-full max-w-2xl mx-auto mb-8 p-6 bg-white rounded-lg shadow-md p-6 bg-white rounded-lg shadow-md"
 >
   <input 
@@ -35,19 +44,29 @@ const readMoreText = {
   <div id="suggestions" class="absolute z-10 w-full max-w-2xl bg-white border border-gray-200 rounded-lg shadow-lg mt-1 hidden">
   </div>
 </div>
+<!-- Add sorting dropdown -->
+<div class="flex justify-end mb-4 max-w-2xl mx-auto">
+  <label for="sort-select" class="sr-only" id="sort-by-label"></label>
+  <select id="sort-select" class="px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+    <option value="dateAdmitted" selected>{t('sort.dateAdmitted')}</option>
+    <option value="bardicName">{t('sort.bardicName')}</option>
+    <option value="surname">{t('sort.surname')}</option>
+    <option value="firstName">{t('sort.firstName')}</option>
+  </select>
+</div>
 <div id="pagination-controls" class="flex justify-center items-center space-x-4 mt-8">
   <button
     id="prev-page-btn"
     class="px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
   >
-    Previous
+    {t('sort.previous')}
   </button>
   <span id="page-info" class="text-secondary-700 font-medium"></span>
   <button
     id="next-page-btn"
     class="px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
   >
-    Next
+    {t('sort.next')}
   </button>
 </div>
 
@@ -80,11 +99,23 @@ const readMoreText = {
   const nextPageBtn = document.getElementById('next-page-btn') as HTMLButtonElement;
   const pageInfoSpan = document.getElementById('page-info') as HTMLSpanElement;
   const bardCountSpan = document.getElementById('bard-count') as HTMLSpanElement;
-  
+ 
+  // New DOM elements
+  const sortSelect = document.getElementById('sort-select') as HTMLSelectElement;
+  const sortByLabel = document.getElementById('sort-by-label') as HTMLLabelElement;
+
   // Bottom pagination controls
   const prevPageBtnBottom = document.getElementById('prev-page-btn-bottom') as HTMLButtonElement;
   const nextPageBtnBottom = document.getElementById('next-page-btn-bottom') as HTMLButtonElement;
   const pageInfoSpanBottom = document.getElementById('page-info-bottom') as HTMLSpanElement;
+
+  // Get labels from data attributes
+  const sortByLabelText = container.dataset.sortByLabel;
+  const sortBardicNameLabel = container.dataset.sortBardicNameLabel;
+  const sortSurnameLabel = container.dataset.sortSurnameLabel;
+  const sortFirstNameLabel = container.dataset.sortFirstNameLabel;
+  const sortDateAdmittedLabel = container.dataset.sortDateAdmittedLabel;
+  sortByLabel.textContent = sortByLabelText;
 
   // Initialize with paginated results
   renderPaginatedResults();
@@ -110,6 +141,55 @@ const readMoreText = {
     pageInfoSpanBottom.textContent = `Page ${totalPages > 0 ? currentPage : 0} of ${totalPages}`;
   }
 
+  // Function to sort the bards
+  function sortBards(bards, sortBy) {
+    switch (sortBy) {
+      case 'bardicName':
+        bards.sort((a, b) => {
+          const nameA = (a["BARDIC NAMES"] || '').toLowerCase();
+          const nameB = (b["BARDIC NAMES"] || '').toLowerCase();
+          return nameA.localeCompare(nameB);
+        });
+        break;
+      case 'surname':
+        bards.sort((a, b) => {
+          const nameA = (a.Surname || '').toLowerCase();
+          const nameB = (b.Surname || '').toLowerCase();
+          return nameA.localeCompare(nameB);
+        });
+        break;
+      case 'firstName':
+        bards.sort((a, b) => {
+          const nameA = (a["FIRST NAMES"] || '').toLowerCase();
+          const nameB = (b["FIRST NAMES"] || '').toLowerCase();
+          return nameA.localeCompare(nameB);
+        });
+        break;
+      case 'dateAdmitted':
+      default:
+        // Default sort by date, then surname (as per process-csv.js logic)
+        bards.sort((a, b) => {
+          const dateA = (a["DATE ADMITTED"] || '').toLowerCase();
+          const dateB = (b["DATE ADMITTED"] || '').toLowerCase();
+          if (dateA !== dateB) return dateA.localeCompare(dateB);
+          const surnameA = (a.Surname || '').toLowerCase();
+          const surnameB = (b.Surname || '').toLowerCase();
+          return surnameA.localeCompare(surnameB);
+        });
+        break;
+    }
+  }
+
+  // Initial sort
+  sortBards(currentFilteredBards, sortSelect.value);
+
+  // Add event listener for sorting
+  sortSelect?.addEventListener('change', () => {
+    sortBards(currentFilteredBards, sortSelect.value);
+    currentPage = 1; // Reset to first page after sorting
+    renderPaginatedResults();
+  });
+
   // Search functionality
   searchInput?.addEventListener('input', (e) => {
     const query = (e.target as HTMLInputElement).value.trim();
@@ -117,6 +197,7 @@ const readMoreText = {
     if (query.length < 3) {
       suggestionsDiv?.classList.add('hidden');
       currentFilteredBards = Object.values(docStore); // Reset to the full list of bards from docStore
+      sortBards(currentFilteredBards, sortSelect.value); // Re-sort after resetting to full list
       currentPage = 1; // Reset current page
       renderPaginatedResults(); // Render paginated results
       return;

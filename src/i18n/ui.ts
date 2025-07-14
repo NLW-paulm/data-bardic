@@ -40,6 +40,13 @@ export const ui = {
     'field.membershipType': 'Math o Aelodaeth',
     'field.source': 'Ffynhonnell',
     'field.additionalInfo': 'Gwybodaeth Ychwanegol',
+    'sort.sortBy': 'Trefnu yn ôl',
+    'sort.bardicName': 'Enw Barddol',
+    'sort.surname': 'Cyfenw',
+    'sort.firstName': 'Enwau Cyntaf',
+    'sort.dateAdmitted': 'Dyddiad Derbyn',
+    'sort.previous': 'Blaenorol',
+    'sort.next': 'Nesaf',
   },
   en: {
     'nav.home': 'Home',
@@ -75,6 +82,13 @@ export const ui = {
     'field.membershipType': 'Type of Membership',
     'field.source': 'Source',
     'field.additionalInfo': 'Additional Information',
+    'sort.sortBy': 'Sort by',
+    'sort.bardicName': 'Bardic Name',
+    'sort.surname': 'Surname',
+    'sort.firstName': 'First Names',
+    'sort.dateAdmitted': 'Date Admitted',
+    'sort.previous': 'Previous',
+    'sort.next': 'Next',
   },
 } as const;
 
