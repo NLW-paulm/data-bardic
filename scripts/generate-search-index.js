@@ -137,7 +137,7 @@ function generateSearchIndex() {
       JSON.stringify({
         idx: idx.toJSON(), // Serialize the Lunr index
         store: docStore    // Include the document store
-      }, null, 2) // Pretty print for readability, can remove in production
+      }) // Pretty print for readability by changing to "}, null, 2)" can remove in production
     );
 
     console.log('Search index generated successfully');
