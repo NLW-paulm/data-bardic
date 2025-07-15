@@ -36,14 +36,14 @@ const FIELD_MAPPING = {
 
 // Data cleaning functions
 function cleanString(str) {
-  if (!str) return 'Unknown';
+  if (!str) return 'Dim Cofnod';
   return str.trim()
     .replace(/\s+/g, ' ') // Remove extra spaces
     .replace(/[\u0000-\u001F\u007F-\u009F]/g, ''); // Remove control characters
 }
 
 function cleanDate(date) {
-  if (!date) return 'Unknown';
+  if (!date) return 'Dim Cofnod';
   return date.trim();
 }
 
@@ -135,7 +135,7 @@ async function processCSV() {
       // Validate record
       if (validateRecord(record)) {
         records.push(record);
-        log(`Valid record processed: ${record.Surname || record['BARDIC NAMES'] || 'Unknown'}`);
+        log(`Valid record processed: ${record.Surname || record['BARDIC NAMES'] || 'Dim Cofnod'}`);
       } else {
         skipped++;
         log(`Skipping invalid record: ${JSON.stringify(row)}`, 'error');
