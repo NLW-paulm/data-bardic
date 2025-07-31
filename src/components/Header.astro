@@ -10,8 +10,8 @@ const { currentLang } = Astro.props;
 
 const navigation = {
   cy: [
-    { name: 'Cartref', path: '' },
-    { name: 'Amdanom', path: 'amdanom' },
+    { name: 'Hafan', path: '' },
+    { name: 'Am y Prosiect', path: 'amdanom' },
     { name: 'Lawrlwytho Data', path: 'lawrlwytho' },
   ],
   en: [
@@ -30,7 +30,7 @@ const homeHref = currentLang === 'cy' ? base : `${base}en/`;
     <div class="flex justify-between items-center h-16">
       <div class="flex items-center">
         <a href={homeHref} class="text-2xl font-bold text-primary-600 hover:text-primary-700 transition-colors">
-          Barddol
+          Gorsedd
         </a>
       </div>
       

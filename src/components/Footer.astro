@@ -7,14 +7,15 @@ const { currentLang } = Astro.props;
 
 const base = import.meta.env.BASE_URL;
 
+
 const footerText = {
   cy: {
-    rights: 'Pob hawl yn gyfyngedig',
-    description: 'Cronfa ddata o feirdd traddodiadol Cymru'
+    rights: `Pob hawl yn gyfyngedig`,
+    description: `Wedi'i greu gan Ymchwil LlGC. Prosiect ymchwil sy'n rhoi mynediad i ddata wedi'i greu gan wirfoddolwyr.`
   },
   en: {
     rights: 'All rights reserved',
-    description: 'Database of traditional Welsh bards'
+    description: 'Created by NLW Research. A research project that gives access to volunteer-generated data'
   }
 };
 
@@ -42,7 +43,7 @@ const buildDate = new Date(buildDateISO).toLocaleDateString(currentLang === 'cy'
       <div class="mb-6">
         <img src={base + "NLW_logo.png"} alt="Bardic Logo" class="h-16 w-auto mx- bg-white p-1 rounded-md" />
       </div>
-      <p class="text-lg font-semibold text-primary-400 mb-2">Bardic</p>
+      <p class="text-lg font-semibold text-primary-400 mb-2">Gorsedd</p>
       <p class="text-sm mb-4">{text.description}</p>
       <p class="text-xs">© 2025 Bardic. {text.rights}.</p
       <!-- Version and Build Date -->
