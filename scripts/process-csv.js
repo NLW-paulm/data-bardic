@@ -36,7 +36,7 @@ const FIELD_MAPPING = {
 
 // Data cleaning functions
 function cleanString(str) {
-  if (!str) return 'Dim Cofnod';
+  if (!str) return ' - ';
   return str.trim()
     .replace(/\s+/g, ' ') // Remove extra spaces
     .replace(/[\u0000-\u001F\u007F-\u009F]/g, ''); // Remove control characters
